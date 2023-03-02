@@ -8,7 +8,6 @@ import OIcon from 'opendesign/icon/OIcon.vue';
 import { useI18n } from 'vue-i18n';
 import { showGuard, logout, getUserAuth, useStoreData } from '@/shared/login';
 import communityLogoWhite from '@/assets/openeuler-logo.png';
-import QuickIssueLogo from '@/assets/quickissue-logo.png';
 import IconDown from '~icons/app/icon-chevron-down.svg';
 import IconLogin from '~icons/app/icon-login.svg';
 
@@ -57,7 +56,7 @@ const jumpToUserZone = () => {
   <header class="app-header">
     <div class="wrap">
       <div class="header-logo">
-        <img class="quickissue-logo" :src="QuickIssueLogo" alt="" />
+        <div>{{ t('software.SOFTWARE_PACKAGE') }}</div>
         <span class="line"></span>
         <a target="_blank" :href="`https://www.openeuler.org/${lang}/`"
           ><img class="community-logo" :src="communityLogoWhite"
@@ -189,8 +188,10 @@ const jumpToUserZone = () => {
       height: 32px;
     }
   }
-  .quickissue-logo {
-    height: 32px;
+  div {
+    color: var(--o-color-white);
+    white-space: nowrap;
+    font-size: var(--o-font-size-h6);
   }
 }
 .opt-user {

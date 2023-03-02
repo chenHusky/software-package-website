@@ -1,4 +1,5 @@
 export default {
+  SOFTWARE_PACKAGE: '贡献软件包',
   APPLY_NEW_PACKAGE: '申请新软件包',
   CLASSIFY: '分类',
   ALL: '全部',
