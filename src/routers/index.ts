@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { useLangStore } from '@/stores';
-import TheSoftwarePackage from '@/views/TheSoftwarePackage.vue';
-import TheApplyPackage from '@/views/add-package/TheApplyPackage.vue';
-import TheDetail from '@/views/detail/TheDetail.vue';
 
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/zh/package' },
@@ -10,19 +7,19 @@ export const routes: RouteRecordRaw[] = [
     path: '/zh/package',
     name: 'package',
     alias: '/en/package',
-    component: TheSoftwarePackage,
+    component: () => import('@/views/TheSoftwarePackage.vue'),
   },
   {
     path: '/zh/apply-package',
     name: 'apply-package',
     alias: '/en/apply-package',
-    component: TheApplyPackage,
+    component: () => import('@/views/add-package/TheApplyPackage.vue'),
   },
   {
     path: '/zh/package-detail/:id',
     name: 'package-detail',
     alias: '/en/package-detail',
-    component: TheDetail,
+    component: () => import('@/views/detail/TheDetail.vue'),
   },
 ];
 
