@@ -40,8 +40,18 @@ const contentData = computed(() => [
   },
 ]);
 
+const getPlatformLabel = (key: string) => {
+  const typesList: any = {
+    gitee: 'Gitee',
+    github: 'Github',
+  };
+  return typesList[key] || '';
+};
 const getContentValue = (key: string) => {
   if (data.value?.application) {
+    if (key === 'platform') {
+      return getPlatformLabel(data.value?.application[key]);
+    }
     return data.value?.application[key] || '';
   }
   return '';
