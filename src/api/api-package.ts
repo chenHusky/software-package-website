@@ -31,3 +31,16 @@ export function querySoftwareList(params: any) {
     })
     .then((res: AxiosResponse) => res.data);
 }
+
+// 软件包详情
+export function getSoftwareDetail(id: string) {
+  const url = `/api-package/api/v1/softwarepkg/${id}`;
+  const { token } = getUserAuth();
+  return request
+    .get(url, {
+      headers: {
+        token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}

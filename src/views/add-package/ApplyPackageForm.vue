@@ -1,10 +1,17 @@
 <script lang="ts" setup>
 import SelectSigModal from './SelectSigModal.vue';
-import { reactive, ref } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { FormInstance, FormItemRule } from 'element-plus';
 import { formValidator } from '@/shared/utils';
 
+const props = defineProps({
+  // 传入默认值
+  data: {
+    type: Object,
+    default: null,
+  },
+});
 const { t } = useI18n();
 
 const visible = ref(false);
@@ -19,15 +26,24 @@ const typesList = [
     value: 'github',
   },
 ];
-const form = reactive({
-  package_desc: '',
-  package_name: '',
-  package_platform: 'gitee',
-  package_reason: '',
-  package_sig: '',
-  source_code_license: '',
-  source_code_url: '',
+const form = ref({
+  desc: '',
+  pkg_name: '',
+  platform: 'gitee',
+  reason: '',
+  sig: '',
+  license: '',
+  source_code: '',
 });
+watch(
+  () => props.data,
+  (data) => {
+    if (data) {
+      Object.assign(form.value, data);
+    }
+  },
+  { immediate: true }
+);
 // 空值校验
 const requiredRules: FormItemRule[] = [
   {
@@ -42,7 +58,7 @@ const emits = defineEmits(['submit', 'cancel']);
 const submit = (formEl: FormInstance | undefined) => {
   formValidator(formEl).subscribe((data) => {
     if (data) {
-      emits('submit', form);
+      emits('submit', form.value);
     }
   });
 };
@@ -51,7 +67,7 @@ const cancel = () => {
 };
 
 const selectSig = (e: string) => {
-  form.package_sig = e;
+  form.value.sig = e;
   visible.value = false;
 };
 </script>
@@ -65,56 +81,38 @@ const selectSig = (e: string) => {
       :inline="true"
       :model="form"
     >
-      <el-form-item
-        :rules="rules"
-        :label="t('名称')"
-        prop="package_name"
-        required
-      >
+      <el-form-item :rules="rules" :label="t('名称')" prop="pkg_name" required>
         <el-input
-          v-model="form.package_name"
+          v-model="form.pkg_name"
           :placeholder="t('请填写软件包名称')"
         ></el-input>
       </el-form-item>
-      <el-form-item
-        :rules="rules"
-        :label="t('描述')"
-        prop="package_desc"
-        required
-      >
+      <el-form-item :rules="rules" :label="t('描述')" prop="desc" required>
         <el-input
-          v-model="form.package_desc"
+          v-model="form.desc"
           :placeholder="t('请填写软件包简介')"
         ></el-input>
       </el-form-item>
-      <el-form-item :label="t('目的')" prop="package_reason">
+      <el-form-item :label="t('目的')" prop="reason">
         <el-input
-          v-model="form.package_reason"
+          v-model="form.reason"
           :placeholder="t('请填写引入目的，比如缺失某个依赖的软件包')"
         ></el-input>
       </el-form-item>
       <el-form-item
         :rules="rules"
         :label="t('源码地址')"
-        prop="source_code_url"
+        prop="source_code"
         required
       >
         <el-input
-          v-model="form.source_code_url"
+          v-model="form.source_code"
           :placeholder="t('请填写源码地址，多个地址请用 ; 隔开')"
         ></el-input>
       </el-form-item>
-      <el-form-item
-        :rules="rules"
-        :label="t('SIG')"
-        prop="package_sig"
-        required
-      >
+      <el-form-item :rules="rules" :label="t('SIG')" prop="sig" required>
         <div class="select-btn">
-          <el-input
-            v-model="form.package_sig"
-            :placeholder="t('请选择SIG')"
-          ></el-input>
+          <el-input v-model="form.sig" :placeholder="t('请选择SIG')"></el-input>
           <OButton type="primary" size="small" @click="visible = true">{{
             t('选择sig组')
           }}</OButton>
@@ -123,21 +121,16 @@ const selectSig = (e: string) => {
       <el-form-item
         :rules="rules"
         :label="t('License')"
-        prop="source_code_license"
+        prop="license"
         required
       >
         <el-input
-          v-model="form.source_code_license"
+          v-model="form.license"
           :placeholder="t('请选择License')"
         ></el-input>
       </el-form-item>
-      <el-form-item
-        :rules="rules"
-        :label="t('平台')"
-        prop="package_platform"
-        required
-      >
-        <OSelect v-model="form.package_platform">
+      <el-form-item :rules="rules" :label="t('平台')" prop="platform" required>
+        <OSelect v-model="form.platform">
           <ElOption
             v-for="item in typesList"
             :key="item.value"

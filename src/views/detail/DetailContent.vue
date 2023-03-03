@@ -1,39 +1,51 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, toRefs } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
-
+const props = defineProps({
+  data: {
+    type: Object,
+    default: () => ({}),
+  },
+});
+const { data } = toRefs(props);
 const { t } = useI18n();
 const contentData = computed(() => [
   {
-    key: 'package_name',
+    key: 'pkg_name',
     label: t('名称'),
   },
   {
-    key: 'package_desc',
+    key: 'desc',
     label: t('描述'),
   },
   {
-    key: 'source_code_url',
+    key: 'source_code',
     label: t('源码地址'),
   },
   {
-    key: 'package_reason',
+    key: 'reason',
     label: t('目的'),
   },
   {
-    key: 'package_sig',
+    key: 'sig',
     label: 'SIG',
   },
   {
-    key: 'source_code_license',
+    key: 'license',
     label: 'License',
   },
   {
-    key: 'package_platform',
+    key: 'platform',
     label: t('平台'),
   },
 ]);
+
+const getContentValue = (key: string) => {
+  if (data.value?.application) {
+    return data.value?.application[key] || '';
+  }
+  return '';
+};
 </script>
 <template>
   <div>
@@ -59,7 +71,7 @@ const contentData = computed(() => [
     <div class="content">
       <template v-for="item in contentData" :key="item.key">
         <div class="label">{{ item.label }}:</div>
-        <div>{{ item.key }}</div>
+        <div>{{ getContentValue(item.key) }}</div>
       </template>
     </div>
   </div>

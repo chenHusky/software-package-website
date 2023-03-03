@@ -12,19 +12,19 @@ const props = defineProps({
 
 const tableConfig = ref<ProTableColConfig[]>([
   {
-    key: 'package_name',
+    key: 'pkg_name',
     label: '软件包名称',
   },
   {
-    key: 'package_desc',
+    key: 'desc',
     label: '简介',
   },
   {
-    key: 'package_sig',
+    key: 'sig',
     label: 'SIG',
   },
   {
-    key: 'package_platform',
+    key: 'platform',
     label: '类型',
     filtersConfig: {
       select: {
@@ -46,7 +46,7 @@ const tableConfig = ref<ProTableColConfig[]>([
     label: '提交人',
   },
   {
-    key: 'source_code_url',
+    key: 'source_code',
     label: '地址',
   },
   {

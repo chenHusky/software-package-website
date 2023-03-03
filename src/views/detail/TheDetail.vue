@@ -1,13 +1,15 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import DetailContent from './DetailContent.vue';
 import DetailComment from './DetailComment.vue';
 import ApplyPackageForm from '../add-package/ApplyPackageForm.vue';
 import IconComments from '~icons/app/icon-comments.svg';
-import { addSoftware } from '@/api/api-package';
+import { addSoftware, getSoftwareDetail } from '@/api/api-package';
+import { useRoute } from 'vue-router';
 
 const { t } = useI18n();
+const route = useRoute();
 const isModify = ref(false);
 
 const submit = (form: any) => {
@@ -24,21 +26,45 @@ const cancel = () => {
 
 const textarea = ref('');
 const showTextarea = ref(false);
+
+// 详情数据
+const detailData = ref<any>({});
+const initData = () => {
+  getDetail();
+};
+const getDetail = () => {
+  getSoftwareDetail(route.params.id as string).then((res) => {
+    const { data } = res;
+    const _data = data || {};
+    if (_data?.application) {
+      _data.application.pkg_name = _data.pkg_name;
+    }
+    detailData.value = _data;
+  });
+};
+watch(
+  () => route.params.id,
+  () => initData(),
+  {
+    immediate: true,
+  }
+);
 </script>
 <template>
   <AppContent>
     <OCard>
       <div class="card-header">
-        <SwListItemContent>
+        <SwListItemContent :data="detailData">
           <template #title>
-            <h1>asdasdasdasdad</h1>
+            <h1 class="title">{{ detailData.pkg_name }}</h1>
           </template>
         </SwListItemContent>
       </div>
       <div class="content-padding">
-        <DetailContent v-if="!isModify"></DetailContent>
+        <DetailContent v-if="!isModify" :data="detailData"></DetailContent>
         <ApplyPackageForm
           v-else
+          :data="detailData?.application"
           @submit="submit"
           @cancel="cancel"
         ></ApplyPackageForm>
@@ -80,6 +106,9 @@ const showTextarea = ref(false);
   margin-bottom: var(--o-spacing-h4);
   padding-bottom: var(--o-spacing-h4);
   border-bottom: 1px solid var(--o-color-division1);
+  .title {
+    line-height: var(--o-line_height-display3);
+  }
 }
 .content-padding {
   padding-left: var(--o-spacing-h5);
