@@ -18,7 +18,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/zh/package-detail/:id',
     name: 'package-detail',
-    alias: '/en/package-detail',
+    alias: '/en/package-detail/:id',
     component: () => import('@/views/detail/TheDetail.vue'),
   },
 ];

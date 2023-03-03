@@ -1,21 +1,28 @@
 <script lang="ts" setup>
-import { useI18n } from 'vue-i18n';
+import { useLangStore } from '@/stores';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
-const props = defineProps({
+defineProps({
   data: {
     type: Object,
     default: () => ({}),
   },
 });
-
-const { t } = useI18n();
+const router = useRouter();
+const lang = computed(() => {
+  return useLangStore().lang;
+});
+const openDetail = (data: any) => {
+  const language = lang.value === 'zh' ? 'zh' : 'en';
+  router.push(`/${language}/package-detail/${data.id}`);
+};
 </script>
 
 <template>
-  <div class="all">
+  <div class="all" @click="openDetail(data)">
     <div class="content">
-      <SwListItemContent> </SwListItemContent>
+      <SwListItemContent :data="data"> </SwListItemContent>
     </div>
   </div>
 </template>

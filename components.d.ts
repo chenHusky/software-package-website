@@ -44,6 +44,7 @@ declare module '@vue/runtime-core' {
     NotFound: typeof import('./src/components/NotFound.vue')['default']
     ONav: typeof import('./src/components/ONav.vue')['default']
     ProfilePhoto: typeof import('./src/components/ProfilePhoto.vue')['default']
+    ProTable: typeof import('./src/components/ProTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SigLandscapeFeature: typeof import('./src/components/SigLandscapeFeature.vue')['default']

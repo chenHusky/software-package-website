@@ -71,10 +71,10 @@ const selectSig = (e: string) => {
         prop="package_name"
         required
       >
-        <OInput
+        <el-input
           v-model="form.package_name"
           :placeholder="t('请填写软件包名称')"
-        ></OInput>
+        ></el-input>
       </el-form-item>
       <el-form-item
         :rules="rules"
@@ -82,16 +82,16 @@ const selectSig = (e: string) => {
         prop="package_desc"
         required
       >
-        <OInput
+        <el-input
           v-model="form.package_desc"
           :placeholder="t('请填写软件包简介')"
-        ></OInput>
+        ></el-input>
       </el-form-item>
       <el-form-item :label="t('目的')" prop="package_reason">
-        <OInput
+        <el-input
           v-model="form.package_reason"
           :placeholder="t('请填写引入目的，比如缺失某个依赖的软件包')"
-        ></OInput>
+        ></el-input>
       </el-form-item>
       <el-form-item
         :rules="rules"
@@ -99,10 +99,10 @@ const selectSig = (e: string) => {
         prop="source_code_url"
         required
       >
-        <OInput
+        <el-input
           v-model="form.source_code_url"
           :placeholder="t('请填写源码地址，多个地址请用 ; 隔开')"
-        ></OInput>
+        ></el-input>
       </el-form-item>
       <el-form-item
         :rules="rules"
@@ -111,10 +111,10 @@ const selectSig = (e: string) => {
         required
       >
         <div class="select-btn">
-          <OInput
+          <el-input
             v-model="form.package_sig"
             :placeholder="t('请选择SIG')"
-          ></OInput>
+          ></el-input>
           <OButton type="primary" size="small" @click="visible = true">{{
             t('选择sig组')
           }}</OButton>
@@ -126,10 +126,10 @@ const selectSig = (e: string) => {
         prop="source_code_license"
         required
       >
-        <OInput
+        <el-input
           v-model="form.source_code_license"
           :placeholder="t('请选择License')"
-        ></OInput>
+        ></el-input>
       </el-form-item>
       <el-form-item
         :rules="rules"

@@ -42,7 +42,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/shared/styles/element-plus/index.scss" as *;`,
+        additionalData: `@use "@/shared/styles/o-theme/index.scss" as *;`,
       },
     },
   },

@@ -10,6 +10,7 @@ import { showGuard, logout, getUserAuth, useStoreData } from '@/shared/login';
 import communityLogoWhite from '@/assets/openeuler-logo.png';
 import IconDown from '~icons/app/icon-chevron-down.svg';
 import IconLogin from '~icons/app/icon-login.svg';
+import { useRouter } from 'vue-router';
 
 const { t, locale } = useI18n({ useScope: 'global' });
 
@@ -50,13 +51,18 @@ const jumpToUserZone = () => {
   const origin = import.meta.env.VITE_LOGIN_ORIGIN;
   window.open(`${origin}/${language}/profile`, '_black');
 };
+const router = useRouter();
+const jumpToHome = () => {
+  const language = lang.value === 'zh' ? 'zh' : 'en';
+  router.push(`/${language}/package`);
+};
 </script>
 
 <template>
   <header class="app-header">
     <div class="wrap">
       <div class="header-logo">
-        <div>{{ t('software.SOFTWARE_PACKAGE') }}</div>
+        <div @click="jumpToHome">{{ t('software.SOFTWARE_PACKAGE') }}</div>
         <span class="line"></span>
         <a target="_blank" :href="`https://www.openeuler.org/${lang}/`"
           ><img class="community-logo" :src="communityLogoWhite"
@@ -192,6 +198,7 @@ const jumpToUserZone = () => {
     color: var(--o-color-white);
     white-space: nowrap;
     font-size: var(--o-font-size-h6);
+    cursor: pointer;
   }
 }
 .opt-user {

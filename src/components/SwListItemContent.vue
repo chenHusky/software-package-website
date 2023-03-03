@@ -3,7 +3,7 @@ import IconUser from '~icons/app/icon-user.svg';
 import IconCalendar from '~icons/app/icon-calendar.svg';
 import { useI18n } from 'vue-i18n';
 
-const props = defineProps({
+defineProps({
   data: {
     type: Object,
     default: () => ({}),
@@ -16,17 +16,18 @@ const { t } = useI18n();
 <template>
   <div>
     <div class="title">
-      <slot name="title">
-        <h3>表头表头表头表头表头表头表头表头</h3>
-      </slot>
-
-      <SwTag> </SwTag>
+      <h3 :title="data.pkg_name">
+        <slot name="title">
+          {{ data.pkg_name }}
+        </slot>
+      </h3>
+      <SwTag :data="data.phase"> </SwTag>
     </div>
     <div class="user">
       <OIcon class="icon"><IconUser></IconUser></OIcon>
-      <div>maintainer</div>
+      <div>{{ data.importer }}</div>
       <OIcon class="icon"><IconCalendar></IconCalendar></OIcon>
-      <div>2020-04-23</div>
+      <div>{{ data.applied_at }}</div>
     </div>
   </div>
 </template>
@@ -37,8 +38,10 @@ const { t } = useI18n();
   align-items: center;
   gap: var(--o-spacing-h5);
   h3 {
-    font-size: var(--o-font-size-h7);
-    line-height: var(--o-line-height-tip);
+    max-width: 1200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .tag {
     padding: var(--o-spacing-h10) var(--o-spacing-h8);

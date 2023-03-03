@@ -5,22 +5,22 @@ import { useI18n } from 'vue-i18n';
 const props = defineProps({
   data: {
     type: String,
-    default: 'approval',
+    default: 'reviewing',
   },
 });
 
 const { t } = useI18n();
 
 const status = computed((): any => ({
-  approval: {
+  reviewing: {
     text: t('software.APPROVAL'),
     color: '#FEAA11',
   },
-  create: {
+  creating_repo: {
     text: t('software.CREATEING_SOFTWARE'),
     color: '#002FA7',
   },
-  end: {
+  closed: {
     text: t('software.ENDED'),
     color: '#B2B2B2',
   },

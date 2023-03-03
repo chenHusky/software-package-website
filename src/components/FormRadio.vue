@@ -40,19 +40,19 @@ const form = ref(
     <template v-for="(item, index) in option" :key="item.id">
       <div v-if="division && index" class="line"></div>
       <p class="label">{{ item.label }}</p>
-      <OSelect
+      <ElSelect
         v-if="item.type === 'select'"
         v-model="form[item.id]"
         class="select"
         @change="changeRadio"
       >
-        <OOption
+        <ElOption
           v-for="list in item.options"
           :key="list.value"
           :label="list.label"
           :value="list.value"
-        />
-      </OSelect>
+        ></ElOption>
+      </ElSelect>
       <el-radio-group
         v-else
         v-model="form[item.id]"

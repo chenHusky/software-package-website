@@ -17,3 +17,17 @@ export function addSoftware(params: any) {
     })
     .then((res: AxiosResponse) => res.data);
 }
+
+// 软件包列表
+export function querySoftwareList(params: any) {
+  const url = '/api-package/api/v1/softwarepkg';
+  const { token } = getUserAuth();
+  return request
+    .get(url, {
+      params,
+      headers: {
+        token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}

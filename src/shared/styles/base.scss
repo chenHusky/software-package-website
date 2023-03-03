@@ -1,4 +1,6 @@
 /* base */
+@import './token.scss';
+@import './normalize.scss';
 html,
 body {
   margin: 0;
@@ -7,11 +9,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  scroll-behavior: smooth;
+  // background: var(--theme-page-bg);
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
-  scroll-padding-top: 80px;
   font-family: 'Helvetica', 'Arial', 'PingFang SC', 'Microsoft YaHei',
     sans-serif;
   &::-webkit-scrollbar-track {
@@ -92,39 +93,4 @@ ul {
 }
 .hm-t-container {
   display: none;
-}
-body {
-  .el-loading-spinner {
-    position: absolute;
-    margin: 0;
-    top: 300px;
-  }
-}
-.language-change.el-popper {
-  box-shadow: var(--o-shadow-l1) !important;
-  width: 120px;
-  .el-dropdown-menu {
-    background: none;
-    padding: 0 20px;
-    &__item {
-      justify-content: center;
-      line-height: 50px;
-      border-bottom: 1px solid var(--o-color-division1);
-      color: var(--o-color-text1);
-      padding: 0;
-      background: none !important;
-      &:last-child {
-        border-bottom: none;
-      }
-      &:hover {
-        color: var(--o-color-brand1);
-      }
-      &.active {
-        color: var(--o-color-brand1);
-      }
-    }
-  }
-  .el-popper__arrow {
-    display: none;
-  }
 }
