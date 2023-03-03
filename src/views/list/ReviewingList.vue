@@ -38,7 +38,7 @@ const initData = () => {
     if (data instanceof Object) {
       const { pkgs = [], total: _total = 0 } = data;
       total.value = _total;
-      listData.value = pkgs;
+      listData.value = pkgs || [];
     }
   });
 };
@@ -52,7 +52,7 @@ watch(
 );
 </script>
 <template>
-  <div>
+  <div v-if="listData.length">
     <el-scrollbar class="Escrollbar">
       <div class="list">
         <SwListItem
@@ -74,6 +74,7 @@ watch(
       @current-change="initData"
     ></el-pagination>
   </div>
+  <NotFound v-else></NotFound>
 </template>
 
 <style scoped lang="scss">
