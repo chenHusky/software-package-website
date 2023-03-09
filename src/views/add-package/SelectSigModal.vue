@@ -2,7 +2,7 @@
 import { getSigLandscape } from '@/api/api-sig';
 import { GroupInfo } from '@/shared/@types/interface';
 import { useLangStore } from '@/stores';
-import { computed, toRefs, ref, watch, onMounted } from 'vue';
+import { computed, toRefs, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -39,6 +39,12 @@ const titleList = ref([
     }),
     key: 'operate',
   },
+  {
+    value: computed(() => {
+      return t('sig.SIG_LANDSCAPE[2].CATEGORY_NAME');
+    }),
+    key: 'other',
+  },
 ]);
 const tabType = ref(titleList.value[0].key);
 const landscapeInfo = ref<GroupInfo[]>([]);
@@ -48,12 +54,22 @@ const lang = computed(() => {
 watch(
   () => lang.value,
   async (val) => {
-    landscapeInfo.value = await getSigLandscape(val);
+    const arr = await getSigLandscape(val);
+    const others = {
+      groupName: t('sig.SIG_LANDSCAPE[2].CATEGORY_NAME'),
+      features: [
+        {
+          featureName: t('sig.SIG_LANDSCAPE[2].CATEGORY_NAME'),
+          sigs: ['other'],
+        },
+      ],
+    };
+    landscapeInfo.value = arr.concat(others);
+  },
+  {
+    immediate: true,
   }
 );
-onMounted(async () => {
-  landscapeInfo.value = await getSigLandscape(lang.value);
-});
 const getSigValue = (val: string) => {
   emit('select', val);
 };

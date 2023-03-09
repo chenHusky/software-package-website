@@ -1,16 +1,24 @@
 <script lang="ts" setup>
-
+import { getLastTime } from '@/shared/utils';
+import { toRefs } from 'vue';
+const props = defineProps({
+  data: {
+    type: Object,
+    default: () => ({}),
+  },
+});
+const { data } = toRefs(props);
 </script>
 <template>
   <div class="content">
     <div class="title">
-      <ProfilePhoto name="asdasd"></ProfilePhoto>
+      <ProfilePhoto :name="data.author"></ProfilePhoto>
       <div>
-        <div class="name">asdasd</div>
-        <div class="time">1天前</div>
+        <div class="name">{{ data.author }}</div>
+        <div class="time">{{ getLastTime(data.created_at) }}</div>
       </div>
     </div>
-    <div class="text">参考 http://git.mydoc.io/?t=179267 注册Gitee账号。</div>
+    <div class="text">{{ data.content }}</div>
   </div>
 </template>
 
@@ -37,6 +45,7 @@
   }
   .text {
     font-size: var(--o-font-size-text);
+    white-space: pre-wrap;
   }
 }
 </style>

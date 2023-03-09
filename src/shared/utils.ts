@@ -88,3 +88,25 @@ export function asyncBlur(formEl: FormInstance | undefined, field: string) {
     formValidator(formEl, field).subscribe();
   }, 200);
 }
+
+export function getLastTime(time: string) {
+  let dValue = (new Date().getTime() - new Date(time).getTime()) / 1000;
+
+  if (dValue / 60 < 1) {
+    return `${dValue}秒前`;
+  }
+  dValue = Math.floor(dValue / 60);
+  if (dValue / 60 < 1) {
+    return `${dValue}分钟前`;
+  }
+  dValue = Math.floor(dValue / 60);
+  if (dValue / 24 < 1) {
+    return `${dValue}小时前`;
+  }
+  dValue = Math.floor(dValue / 24);
+  if (dValue / 365 < 1) {
+    return `${dValue}天前`;
+  }
+  dValue = Math.floor(dValue / 365);
+  return `${dValue}年前`;
+}
