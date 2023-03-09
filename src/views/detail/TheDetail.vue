@@ -75,14 +75,14 @@ watch(
             {{ t('回复') }}
             <OIcon style="font-size: 20px"><IconComments></IconComments></OIcon>
           </OButton>
-          <OButton
+          <!-- <OButton
             v-if="!isModify"
             type="primary"
             size="small"
             @click="isModify = true"
           >
             {{ t('修改') }}
-          </OButton>
+          </OButton> -->
         </div>
         <div v-if="showTextarea" class="textarea">
           <el-input v-model="textarea" :rows="4" type="textarea" />
@@ -96,7 +96,13 @@ watch(
           </div>
         </div>
       </div>
-      <DetailComment></DetailComment>
+      <div v-if="detailData?.comments?.length">
+        <DetailComment
+          v-for="comment in detailData?.comments"
+          :key="comment.id"
+          :data="comment"
+        ></DetailComment>
+      </div>
     </OCard>
   </AppContent>
 </template>

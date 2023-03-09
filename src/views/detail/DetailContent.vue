@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref, toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 import { useI18n } from 'vue-i18n';
 const props = defineProps({
   data: {
@@ -19,20 +19,20 @@ const contentData = computed(() => [
     label: t('描述'),
   },
   {
-    key: 'source_code',
-    label: t('源码地址'),
-  },
-  {
     key: 'reason',
     label: t('目的'),
   },
   {
-    key: 'sig',
-    label: 'SIG',
+    key: 'source_code',
+    label: t('源码地址'),
   },
   {
     key: 'license',
     label: 'License',
+  },
+  {
+    key: 'sig',
+    label: 'SIG',
   },
   {
     key: 'platform',
@@ -60,7 +60,7 @@ const getContentValue = (key: string) => {
 <template>
   <div>
     <h3 class="title">
-      <span>正文内容</span>
+      <span>申请信息</span>
       <el-popover
         width="200"
         :show-arrow="true"
@@ -70,10 +70,21 @@ const getContentValue = (key: string) => {
         propper-style="{font-size: 12px}"
       >
         <template #reference>
-          <div class="person">
-            <span style="margin-right: 8px">审批人</span>
-            <ProfilePhoto name="我"></ProfilePhoto>
-            <ProfilePhoto name="我"></ProfilePhoto>
+          <div v-if="data?.rejected_by?.length" class="person">
+            <span style="margin-right: 8px">不同意:</span>
+            <ProfilePhoto
+              v-for="item in data?.rejected_by"
+              :key="item"
+              :name="item"
+            ></ProfilePhoto>
+          </div>
+          <div v-else-if="data?.approved_by?.length" class="person">
+            <span style="margin-right: 8px">同意:</span>
+            <ProfilePhoto
+              v-for="item in data?.approved_by"
+              :key="item"
+              :name="item"
+            ></ProfilePhoto>
           </div>
         </template>
       </el-popover>
@@ -81,7 +92,9 @@ const getContentValue = (key: string) => {
     <div class="content">
       <template v-for="item in contentData" :key="item.key">
         <div class="label">{{ item.label }}:</div>
-        <div>{{ getContentValue(item.key) }}</div>
+        <el-scrollbar :max-height="110">
+          <div class="value">{{ getContentValue(item.key) }}</div>
+        </el-scrollbar>
       </template>
     </div>
   </div>
@@ -105,10 +118,13 @@ const getContentValue = (key: string) => {
 }
 .content {
   display: grid;
-  grid-template-columns: max-content 1fr max-content 1fr max-content 1fr;
+  grid-template-columns: max-content 1fr;
   gap: var(--o-spacing-h5);
   .label {
     text-align: right;
+  }
+  .value {
+    white-space: pre-wrap;
   }
 }
 </style>

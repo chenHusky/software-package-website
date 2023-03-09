@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import SelectSigModal from './SelectSigModal.vue';
-import { reactive, ref, watch } from 'vue';
+import SelectLicenseModal from './SelectLicenseModal.vue';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { FormInstance, FormItemRule } from 'element-plus';
 import { formValidator } from '@/shared/utils';
@@ -15,6 +16,7 @@ const props = defineProps({
 const { t } = useI18n();
 
 const visible = ref(false);
+const licenseVisible = ref(false);
 const formRef = ref<FormInstance>();
 const typesList = [
   {
@@ -69,6 +71,12 @@ const cancel = () => {
 const selectSig = (e: string) => {
   form.value.sig = e;
   visible.value = false;
+  formValidator(formRef.value, 'sig').subscribe();
+};
+const selectLicense = (e: string) => {
+  form.value.license = e;
+  licenseVisible.value = false;
+  formValidator(formRef.value, 'license').subscribe();
 };
 </script>
 <template>
@@ -81,22 +89,48 @@ const selectSig = (e: string) => {
       :inline="true"
       :model="form"
     >
-      <el-form-item :rules="rules" :label="t('名称')" prop="pkg_name" required>
+      <el-form-item
+        class="fill-row"
+        :rules="rules"
+        :label="t('名称')"
+        prop="pkg_name"
+        required
+      >
         <el-input
           v-model="form.pkg_name"
           :placeholder="t('请填写软件包名称')"
         ></el-input>
       </el-form-item>
-      <el-form-item :rules="rules" :label="t('描述')" prop="desc" required>
+      <el-form-item
+        class="fill-row"
+        :rules="rules"
+        :label="t('描述')"
+        prop="desc"
+        required
+      >
         <el-input
           v-model="form.desc"
           :placeholder="t('请填写软件包简介')"
+          :rows="2"
+          type="textarea"
+          maxlength="1000"
+          show-word-limit
         ></el-input>
       </el-form-item>
-      <el-form-item :label="t('目的')" prop="reason">
+      <el-form-item
+        class="fill-row form-gap"
+        :rules="rules"
+        :label="t('目的')"
+        prop="reason"
+        required
+      >
         <el-input
           v-model="form.reason"
-          :placeholder="t('请填写引入目的，比如缺失某个依赖的软件包')"
+          :placeholder="t('请填写引入目的，比如我希望引入此包')"
+          :rows="2"
+          maxlength="1000"
+          show-word-limit
+          type="textarea"
         ></el-input>
       </el-form-item>
       <el-form-item
@@ -107,16 +141,8 @@ const selectSig = (e: string) => {
       >
         <el-input
           v-model="form.source_code"
-          :placeholder="t('请填写源码地址，多个地址请用 ; 隔开')"
+          :placeholder="t('请填写源码地址')"
         ></el-input>
-      </el-form-item>
-      <el-form-item :rules="rules" :label="t('SIG')" prop="sig" required>
-        <div class="select-btn">
-          <el-input v-model="form.sig" :placeholder="t('请选择SIG')"></el-input>
-          <OButton type="primary" size="small" @click="visible = true">{{
-            t('选择sig组')
-          }}</OButton>
-        </div>
       </el-form-item>
       <el-form-item
         :rules="rules"
@@ -124,13 +150,29 @@ const selectSig = (e: string) => {
         prop="license"
         required
       >
-        <el-input
-          v-model="form.license"
-          :placeholder="t('请选择License')"
-        ></el-input>
+        <div class="select-btn">
+          <el-input
+            v-model="form.license"
+            :placeholder="t('请选择License')"
+          ></el-input>
+          <OButton type="primary" size="small" @click="licenseVisible = true">{{
+            t('选择License')
+          }}</OButton>
+        </div>
+      </el-form-item>
+      <el-form-item :rules="rules" :label="t('SIG')" prop="sig" required>
+        <div class="select-btn">
+          <el-input
+            v-model="form.sig"
+            :placeholder="t('请选择SIG，若没有请选择 other')"
+          ></el-input>
+          <OButton type="primary" size="small" @click="visible = true">{{
+            t('选择sig组')
+          }}</OButton>
+        </div>
       </el-form-item>
       <el-form-item :rules="rules" :label="t('平台')" prop="platform" required>
-        <OSelect v-model="form.platform">
+        <OSelect v-model="form.platform" style="width: 100%">
           <ElOption
             v-for="item in typesList"
             :key="item.value"
@@ -150,12 +192,22 @@ const selectSig = (e: string) => {
     </footer>
   </div>
   <SelectSigModal v-model="visible" @select="selectSig"></SelectSigModal>
+  <SelectLicenseModal
+    v-model="licenseVisible"
+    @select="selectLicense"
+  ></SelectLicenseModal>
 </template>
 
 <style scoped lang="scss">
 .form {
   display: grid;
   grid-template-columns: 50% 50%;
+  .fill-row {
+    grid-column-start: span 2;
+  }
+  .form-gap {
+    margin-bottom: var(--o-gap-7);
+  }
 }
 .select-btn {
   display: grid;
@@ -163,6 +215,7 @@ const selectSig = (e: string) => {
   width: 100%;
 }
 footer {
+  padding-top: var(--o-gap-7);
   display: flex;
   justify-content: center;
   gap: var(--o-spacing-h4);
