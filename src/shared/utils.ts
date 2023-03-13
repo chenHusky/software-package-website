@@ -93,7 +93,7 @@ export function getLastTime(time: string) {
   let dValue = (new Date().getTime() - new Date(time).getTime()) / 1000;
 
   if (dValue / 60 < 1) {
-    return `${dValue}秒前`;
+    return `${Math.ceil(dValue)}秒前`;
   }
   dValue = Math.floor(dValue / 60);
   if (dValue / 60 < 1) {
