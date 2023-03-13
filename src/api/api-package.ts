@@ -44,3 +44,55 @@ export function getSoftwareDetail(id: string) {
     })
     .then((res: AxiosResponse) => res.data);
 }
+
+// 放弃申请软件包
+export function abandonSoftware(id: string) {
+  const url = `/api-package/api/v1/softwarepkg/${id}/review/abandon`;
+  const { token } = getUserAuth();
+  return request
+    .put(url, undefined, {
+      headers: {
+        token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}
+
+// 同意申请软件包
+export function approveSoftware(id: string) {
+  const url = `/api-package/api/v1/softwarepkg/${id}/review/approve`;
+  const { token } = getUserAuth();
+  return request
+    .put(url, undefined, {
+      headers: {
+        token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}
+
+// 不同意申请软件包
+export function rejectSoftware(id: string) {
+  const url = `/api-package/api/v1/softwarepkg/${id}/review/reject`;
+  const { token } = getUserAuth();
+  return request
+    .put(url, undefined, {
+      headers: {
+        token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}
+
+// 评论申请软件包
+export function commentSoftware(id: string, params: any) {
+  const url = `/api-package/api/v1/softwarepkg/${id}/review/comment`;
+  const { token } = getUserAuth();
+  return request
+    .post(url, params, {
+      headers: {
+        token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}

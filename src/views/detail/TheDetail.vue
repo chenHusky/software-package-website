@@ -1,11 +1,19 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import DetailContent from './DetailContent.vue';
 import DetailComment from './DetailComment.vue';
+import CommentsModal from './CommentsModal.vue';
 import ApplyPackageForm from '../add-package/ApplyPackageForm.vue';
 import IconComments from '~icons/app/icon-comments.svg';
-import { addSoftware, getSoftwareDetail } from '@/api/api-package';
+import {
+  abandonSoftware,
+  addSoftware,
+  approveSoftware,
+  commentSoftware,
+  getSoftwareDetail,
+  rejectSoftware,
+} from '@/api/api-package';
 import { useRoute } from 'vue-router';
 
 const { t } = useI18n();
@@ -23,8 +31,6 @@ const submit = (form: any) => {
 const cancel = () => {
   isModify.value = false;
 };
-
-const textarea = ref('');
 const showTextarea = ref(false);
 
 // 详情数据
@@ -49,6 +55,65 @@ watch(
     immediate: true,
   }
 );
+let timer: NodeJS.Timer;
+onMounted(() => {
+  timer = setInterval(() => initData(), 30000);
+});
+onUnmounted(() => {
+  clearInterval(timer);
+});
+
+const submitComment = (e: string) => {
+  const params = {
+    comment: e,
+  };
+  commentSoftware(route.params.id as string, params).then(() => {
+    initData();
+  });
+};
+
+const operateDropdown = ref();
+const showOperate = () => {
+  operateDropdown.value.handleOpen();
+};
+const operateOption = computed(() => [
+  {
+    value: 'approve',
+    label: t('同意'),
+    visible: true,
+  },
+  {
+    value: 'reject',
+    label: t('拒绝'),
+    visible: true,
+  },
+  {
+    value: 'abandon',
+    label: t('放弃'),
+    visible: true,
+  },
+]);
+const operate = (key: 'approve' | 'reject' | 'abandon') => {
+  const id = route.params.id as string;
+  const eventObj = {
+    approve: () => {
+      approveSoftware(id).then(() => {
+        initData();
+      });
+    },
+    reject: () => {
+      rejectSoftware(id).then(() => {
+        initData();
+      });
+    },
+    abandon: () => {
+      abandonSoftware(id).then(() => {
+        initData();
+      });
+    },
+  };
+  eventObj[key] && eventObj[key]();
+};
 </script>
 <template>
   <AppContent>
@@ -75,26 +140,31 @@ watch(
             {{ t('回复') }}
             <OIcon style="font-size: 20px"><IconComments></IconComments></OIcon>
           </OButton>
-          <!-- <OButton
-            v-if="!isModify"
-            type="primary"
-            size="small"
-            @click="isModify = true"
+          <el-dropdown
+            ref="operateDropdown"
+            trigger="contextmenu"
+            @command="operate"
           >
-            {{ t('修改') }}
-          </OButton> -->
-        </div>
-        <div v-if="showTextarea" class="textarea">
-          <el-input v-model="textarea" :rows="4" type="textarea" />
-          <div class="textarea-btns">
-            <OButton type="primary" size="small" @click="showTextarea = false">
-              {{ t('确认') }}
+            <OButton type="primary" size="small" @click="showOperate">
+              {{ t('操作') }}
             </OButton>
-            <OButton @click="showTextarea = false">
-              {{ t('取消') }}
-            </OButton>
-          </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <template v-for="item in operateOption" :key="item.value">
+                  <el-dropdown-item v-if="item.visible" :command="item.value">
+                    <div style="width: 80px; text-align: center">
+                      {{ item.label }}
+                    </div>
+                  </el-dropdown-item>
+                </template>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
+        <CommentsModal
+          v-model="showTextarea"
+          @submit="submitComment"
+        ></CommentsModal>
       </div>
       <div v-if="detailData?.comments?.length">
         <DetailComment
@@ -128,14 +198,8 @@ watch(
     display: flex;
     justify-content: space-between;
   }
-  .textarea {
-    padding-top: var(--o-spacing-h5);
-    .textarea-btns {
-      display: flex;
-      justify-content: center;
-      gap: var(--o-spacing-h5);
-      padding-top: var(--o-spacing-h5);
-    }
-  }
+}
+.operate-option {
+  width: 100px;
 }
 </style>
