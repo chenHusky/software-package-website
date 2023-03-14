@@ -50,7 +50,7 @@ watch(
 const requiredRules: FormItemRule[] = [
   {
     required: true,
-    message: t('输入不能为空'),
+    message: t('software.NOT_EMPTY'),
     trigger: 'blur',
   },
 ];
@@ -92,25 +92,25 @@ const selectLicense = (e: string) => {
       <el-form-item
         class="fill-row"
         :rules="rules"
-        :label="t('名称')"
+        :label="t('software.NAME')"
         prop="pkg_name"
         required
       >
         <el-input
           v-model="form.pkg_name"
-          :placeholder="t('请填写软件包名称')"
+          :placeholder="t('software.ENTER_NAME')"
         ></el-input>
       </el-form-item>
       <el-form-item
         class="fill-row"
         :rules="rules"
-        :label="t('描述')"
+        :label="t('software.DESC')"
         prop="desc"
         required
       >
         <el-input
           v-model="form.desc"
-          :placeholder="t('请填写软件包简介')"
+          :placeholder="t('software.ENTER_DESC')"
           :rows="2"
           type="textarea"
           maxlength="1000"
@@ -120,13 +120,13 @@ const selectLicense = (e: string) => {
       <el-form-item
         class="fill-row form-gap"
         :rules="rules"
-        :label="t('目的')"
+        :label="t('software.REASON')"
         prop="reason"
         required
       >
         <el-input
           v-model="form.reason"
-          :placeholder="t('请填写引入目的，比如我希望引入此包')"
+          :placeholder="t('software.ENTER_REASON')"
           :rows="2"
           maxlength="1000"
           show-word-limit
@@ -135,43 +135,43 @@ const selectLicense = (e: string) => {
       </el-form-item>
       <el-form-item
         :rules="rules"
-        :label="t('源码地址')"
+        :label="t('software.SOURCE_CODE')"
         prop="source_code"
         required
       >
         <el-input
           v-model="form.source_code"
-          :placeholder="t('请填写源码地址')"
+          :placeholder="t('software.ENTER_SOURCE_CODE')"
         ></el-input>
       </el-form-item>
-      <el-form-item
-        :rules="rules"
-        :label="t('License')"
-        prop="license"
-        required
-      >
+      <el-form-item :rules="rules" label="License" prop="license" required>
         <div class="select-btn">
           <el-input
             v-model="form.license"
-            :placeholder="t('请选择License')"
+            :placeholder="t('software.ENTER_LICENSE')"
           ></el-input>
           <OButton type="primary" size="small" @click="licenseVisible = true">{{
-            t('选择License')
+            t('software.SELECT_LICENSE')
           }}</OButton>
         </div>
       </el-form-item>
-      <el-form-item :rules="rules" :label="t('SIG')" prop="sig" required>
+      <el-form-item :rules="rules" label="SIG" prop="sig" required>
         <div class="select-btn">
           <el-input
             v-model="form.sig"
-            :placeholder="t('请选择SIG，若没有请选择 other')"
+            :placeholder="t('software.ENTER_SIG')"
           ></el-input>
           <OButton type="primary" size="small" @click="visible = true">{{
-            t('选择sig组')
+            t('software.SELECT_SIG')
           }}</OButton>
         </div>
       </el-form-item>
-      <el-form-item :rules="rules" :label="t('平台')" prop="platform" required>
+      <el-form-item
+        :rules="rules"
+        :label="t('software.PLATFORM')"
+        prop="platform"
+        required
+      >
         <OSelect v-model="form.platform" style="width: 100%">
           <ElOption
             v-for="item in typesList"
@@ -184,10 +184,10 @@ const selectLicense = (e: string) => {
     </el-form>
     <footer>
       <OButton class="btn" type="primary" size="small" @click="submit(formRef)">
-        {{ t('提交申请') }}
+        {{ t('software.SUBMIT') }}
       </OButton>
       <OButton class="btn" size="small" @click="cancel">
-        {{ t('取消') }}
+        {{ t('software.CANCEL') }}
       </OButton>
     </footer>
   </div>

@@ -1,7 +1,9 @@
 import { FormInstance } from 'element-plus';
 import { from, Observable, reduce, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 // TS 对象key合法检查
 export function isValidKey(
   key: string | number | symbol,
@@ -93,20 +95,20 @@ export function getLastTime(time: string) {
   let dValue = (new Date().getTime() - new Date(time).getTime()) / 1000;
 
   if (dValue / 60 < 1) {
-    return `${Math.ceil(dValue)}秒前`;
+    return `${Math.ceil(dValue)}${t('software.SECONDS_AGO')}`;
   }
   dValue = Math.floor(dValue / 60);
   if (dValue / 60 < 1) {
-    return `${dValue}分钟前`;
+    return `${dValue}${t('software.MINUTE_AGO')}`;
   }
   dValue = Math.floor(dValue / 60);
   if (dValue / 24 < 1) {
-    return `${dValue}小时前`;
+    return `${dValue}${t('software.HOURS_AGO')}`;
   }
   dValue = Math.floor(dValue / 24);
   if (dValue / 365 < 1) {
-    return `${dValue}天前`;
+    return `${dValue}${t('software.DAYS_AGO')}`;
   }
   dValue = Math.floor(dValue / 365);
-  return `${dValue}年前`;
+  return `${dValue}${t('software.YEARS_AGO')}`;
 }

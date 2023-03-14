@@ -2,6 +2,7 @@
 import { querySoftwareList } from '@/api/api-package';
 import { ProTableColConfig } from '@/shared/@types/protable.interface';
 import { ref, shallowRef, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   importer: {
@@ -10,14 +11,16 @@ const props = defineProps({
   },
 });
 
+const { t } = useI18n();
+
 const tableConfig = ref<ProTableColConfig[]>([
   {
     key: 'pkg_name',
-    label: '软件包名称',
+    label: t('software.NAME'),
   },
   {
     key: 'desc',
-    label: '简介',
+    label: t('software.DESC'),
   },
   {
     key: 'sig',
@@ -25,7 +28,7 @@ const tableConfig = ref<ProTableColConfig[]>([
   },
   {
     key: 'platform',
-    label: '类型',
+    label: t('software.PLATFORM'),
     filtersConfig: {
       select: {
         options: [
@@ -43,15 +46,15 @@ const tableConfig = ref<ProTableColConfig[]>([
   },
   {
     key: 'importer',
-    label: '提交人',
+    label: t('software.SUBMITTER'),
   },
   {
     key: 'source_code',
-    label: '地址',
+    label: t('software.SOURCE_CODE'),
   },
   {
     key: 'applied_at',
-    label: '提交时间',
+    label: t('software.SUBMIT_TIME'),
   },
 ]);
 
