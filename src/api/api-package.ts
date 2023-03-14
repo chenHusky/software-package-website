@@ -12,7 +12,7 @@ export function addSoftware(params: any) {
   return request
     .post(url, params, {
       headers: {
-        token,
+        'PRIVATE-TOKEN': token,
       },
     })
     .then((res: AxiosResponse) => res.data);
@@ -26,7 +26,7 @@ export function querySoftwareList(params: any) {
     .get(url, {
       params,
       headers: {
-        token,
+        'PRIVATE-TOKEN': token,
       },
     })
     .then((res: AxiosResponse) => res.data);
@@ -39,7 +39,7 @@ export function getSoftwareDetail(id: string) {
   return request
     .get(url, {
       headers: {
-        token,
+        'PRIVATE-TOKEN': token,
       },
     })
     .then((res: AxiosResponse) => res.data);
@@ -52,7 +52,7 @@ export function abandonSoftware(id: string) {
   return request
     .put(url, undefined, {
       headers: {
-        token,
+        'PRIVATE-TOKEN': token,
       },
     })
     .then((res: AxiosResponse) => res.data);
@@ -65,7 +65,7 @@ export function approveSoftware(id: string) {
   return request
     .put(url, undefined, {
       headers: {
-        token,
+        'PRIVATE-TOKEN': token,
       },
     })
     .then((res: AxiosResponse) => res.data);
@@ -78,7 +78,7 @@ export function rejectSoftware(id: string) {
   return request
     .put(url, undefined, {
       headers: {
-        token,
+        'PRIVATE-TOKEN': token,
       },
     })
     .then((res: AxiosResponse) => res.data);
@@ -91,7 +91,7 @@ export function commentSoftware(id: string, params: any) {
   return request
     .post(url, params, {
       headers: {
-        token,
+        'PRIVATE-TOKEN': token,
       },
     })
     .then((res: AxiosResponse) => res.data);
