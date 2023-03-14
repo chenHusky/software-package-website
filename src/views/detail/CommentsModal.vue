@@ -29,17 +29,17 @@ const textarea = ref('');
   <el-dialog
     v-model="modelValue"
     :before-close="close"
-    :title="t('回复')"
+    :title="t('software.REPLY')"
     width="35%"
     :show-close="true"
   >
     <el-input v-model="textarea" :rows="4" type="textarea" />
     <div class="textarea-btns">
       <OButton type="primary" size="small" @click="getValue">
-        {{ t('确认') }}
+        {{ t('software.CONFIRM') }}
       </OButton>
       <OButton @click="close">
-        {{ t('取消') }}
+        {{ t('software.CANCEL') }}
       </OButton>
     </div>
   </el-dialog>

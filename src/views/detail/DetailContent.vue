@@ -12,19 +12,19 @@ const { t } = useI18n();
 const contentData = computed(() => [
   {
     key: 'pkg_name',
-    label: t('名称'),
+    label: t('software.NAME'),
   },
   {
     key: 'desc',
-    label: t('描述'),
+    label: t('software.DESC'),
   },
   {
     key: 'reason',
-    label: t('目的'),
+    label: t('software.REASON'),
   },
   {
     key: 'source_code',
-    label: t('源码地址'),
+    label: t('software.SOURCE_CODE'),
   },
   {
     key: 'license',
@@ -36,7 +36,7 @@ const contentData = computed(() => [
   },
   {
     key: 'platform',
-    label: t('平台'),
+    label: t('software.PLATFORM'),
   },
 ]);
 
@@ -60,18 +60,18 @@ const getContentValue = (key: string) => {
 <template>
   <div>
     <h3 class="title">
-      <span>申请信息</span>
+      <span>{{ t('software.APPLY_INFO') }}</span>
       <el-popover
         width="200"
         :show-arrow="true"
         placement="top"
         trigger="click"
-        content="总共需要2个人同意才能审批通过，当前还需1人同意。"
+        :content="t('software.APPROVE_APPLY_INFO')"
         propper-style="{font-size: 12px}"
       >
         <template #reference>
           <div v-if="data?.rejected_by?.length" class="person">
-            <span style="margin-right: 8px">不同意:</span>
+            <span style="margin-right: 8px">{{ t('software.REJECT') }}:</span>
             <ProfilePhoto
               v-for="item in data?.rejected_by"
               :key="item"
@@ -79,7 +79,7 @@ const getContentValue = (key: string) => {
             ></ProfilePhoto>
           </div>
           <div v-else-if="data?.approved_by?.length" class="person">
-            <span style="margin-right: 8px">同意:</span>
+            <span style="margin-right: 8px">{{ t('software.APPROVE') }}:</span>
             <ProfilePhoto
               v-for="item in data?.approved_by"
               :key="item"

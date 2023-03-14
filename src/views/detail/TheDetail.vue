@@ -79,17 +79,17 @@ const showOperate = () => {
 const operateOption = computed(() => [
   {
     value: 'approve',
-    label: t('同意'),
+    label: t('software.APPROVE'),
     visible: true,
   },
   {
     value: 'reject',
-    label: t('拒绝'),
+    label: t('software.REJECT'),
     visible: true,
   },
   {
     value: 'abandon',
-    label: t('放弃'),
+    label: t('software.ABANDON'),
     visible: true,
   },
 ]);
@@ -137,7 +137,7 @@ const operate = (key: 'approve' | 'reject' | 'abandon') => {
       <div class="content-padding reply">
         <div class="btns">
           <OButton type="primary" size="small" @click="showTextarea = true">
-            {{ t('回复') }}
+            {{ t('software.REPLY') }}
             <OIcon style="font-size: 20px"><IconComments></IconComments></OIcon>
           </OButton>
           <el-dropdown
@@ -146,7 +146,7 @@ const operate = (key: 'approve' | 'reject' | 'abandon') => {
             @command="operate"
           >
             <OButton type="primary" size="small" @click="showOperate">
-              {{ t('操作') }}
+              {{ t('software.OPERATE') }}
             </OButton>
             <template #dropdown>
               <el-dropdown-menu>
