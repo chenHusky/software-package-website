@@ -3,7 +3,6 @@ import { from, Observable, reduce, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { useI18n } from 'vue-i18n';
 
-const { t } = useI18n();
 // TS 对象key合法检查
 export function isValidKey(
   key: string | number | symbol,
@@ -92,6 +91,7 @@ export function asyncBlur(formEl: FormInstance | undefined, field: string) {
 }
 
 export function getLastTime(time: string) {
+  const { t } = useI18n();
   let dValue = (new Date().getTime() - new Date(time).getTime()) / 1000;
 
   if (dValue / 60 < 1) {
