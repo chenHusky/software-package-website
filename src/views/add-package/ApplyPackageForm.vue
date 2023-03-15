@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import SelectSigModal from './SelectSigModal.vue';
 import SelectLicenseModal from './SelectLicenseModal.vue';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { FormInstance, FormItemRule } from 'element-plus';
 import { formValidator } from '@/shared/utils';
+import { useRoute } from 'vue-router';
 
 const props = defineProps({
   // 传入默认值
@@ -12,8 +13,14 @@ const props = defineProps({
     type: Object,
     default: null,
   },
+  // 默认值从uri获取
+  formFromUri: {
+    type: Boolean,
+    default: true,
+  },
 });
 const { t } = useI18n();
+const route = useRoute();
 
 const visible = ref(false);
 const licenseVisible = ref(false);
@@ -46,6 +53,31 @@ watch(
   },
   { immediate: true }
 );
+onMounted(() => {
+  setDefaultForm();
+});
+
+const setDefaultForm = () => {
+  const query: any = route.query || {};
+  if (props.formFromUri && Object.keys(query).length) {
+    const keys = [
+      'desc',
+      'pkg_name',
+      'platform',
+      'reason',
+      'sig',
+      'license',
+      'source_code',
+    ];
+    const params = keys.reduce((pre: any, next: any) => {
+      if (query[next]) {
+        pre[next] = query[next];
+      }
+      return pre;
+    }, {});
+    Object.assign(form.value, params);
+  }
+};
 // 空值校验
 const requiredRules: FormItemRule[] = [
   {

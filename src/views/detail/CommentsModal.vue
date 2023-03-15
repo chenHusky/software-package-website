@@ -31,6 +31,7 @@ const textarea = ref('');
     :before-close="close"
     :title="t('software.REPLY')"
     width="35%"
+    align-center
     :show-close="true"
   >
     <el-input v-model="textarea" :rows="4" type="textarea" />
