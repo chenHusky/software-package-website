@@ -22,14 +22,12 @@ watch(
 </script>
 
 <template>
-  <div id="app">
-    <header><AppHeader /></header>
-    <main><RouterView></RouterView></main>
-    <footer><AppFooter /></footer>
-  </div>
+  <header><AppHeader /></header>
+  <main class="software-main"><RouterView></RouterView></main>
+  <footer><AppFooter /></footer>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -40,7 +38,7 @@ watch(
   background-color: rgb(1, 10, 51);
 }
 
-main {
+.software-main {
   position: relative;
   min-height: calc(100vh - 339px);
   overflow: hidden;

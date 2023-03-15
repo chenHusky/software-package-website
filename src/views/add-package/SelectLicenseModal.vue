@@ -35,6 +35,7 @@ const search = ref('');
     :before-close="close"
     :title="t('software.SELECT_LICENSE')"
     width="35%"
+    align-center
     :show-close="true"
   >
     <div>
