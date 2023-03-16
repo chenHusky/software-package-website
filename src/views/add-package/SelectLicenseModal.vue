@@ -33,7 +33,7 @@ const search = ref('');
   <el-dialog
     v-model="modelValue"
     :before-close="close"
-    :title="t('software.SELECT_LICENSE')"
+    :title="t('software.SELECT')"
     width="35%"
     align-center
     :show-close="true"

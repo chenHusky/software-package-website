@@ -15,9 +15,11 @@ import {
   rejectSoftware,
 } from '@/api/api-package';
 import { useRoute } from 'vue-router';
+import { useStoreData } from '@/shared/login';
 
 const { t } = useI18n();
 const route = useRoute();
+const { guardAuthClient } = useStoreData();
 const isModify = ref(false);
 
 const submit = (form: any) => {
@@ -90,7 +92,9 @@ const operateOption = computed(() => [
   {
     value: 'abandon',
     label: t('software.ABANDON'),
-    visible: true,
+    visible:
+      detailData.value.importer &&
+      detailData.value.importer === guardAuthClient.value.username,
   },
 ]);
 const operate = (key: 'approve' | 'reject' | 'abandon') => {

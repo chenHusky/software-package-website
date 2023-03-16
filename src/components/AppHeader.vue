@@ -108,15 +108,19 @@ const jumpToHome = () => {
                 :key="key"
                 :class="{ active: lang === item.value }"
                 :command="item"
-                >{{ item.label }}</el-dropdown-item
+                :divided="key > 0"
               >
+                <div style="width: 80px; text-align: center">
+                  {{ item.label }}
+                </div>
+              </el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
       </div>
 
       <a :href="`/${lang}/apply-package`" class="new-issue">
-        <OButton>{{ t('software.APPLY_NEW_PACKAGE') }} </OButton>
+        <OButton>{{ t('software.SOFTWARE_PACKAGE') }} </OButton>
       </a>
     </div>
   </header>

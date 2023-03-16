@@ -190,7 +190,7 @@ const selectLicense = (e: string) => {
             :placeholder="t('software.ENTER_LICENSE')"
           ></el-input>
           <OButton type="primary" size="small" @click="licenseVisible = true">{{
-            t('software.SELECT_LICENSE')
+            t('software.SELECT')
           }}</OButton>
         </div>
       </el-form-item>
@@ -201,7 +201,7 @@ const selectLicense = (e: string) => {
             :placeholder="t('software.ENTER_SIG')"
           ></el-input>
           <OButton type="primary" size="small" @click="visible = true">{{
-            t('software.SELECT_SIG')
+            t('software.SELECT')
           }}</OButton>
         </div>
       </el-form-item>

@@ -1,6 +1,5 @@
 export default {
   SOFTWARE_PACKAGE: '贡献软件包',
-  APPLY_NEW_PACKAGE: '申请新软件包',
   CLASSIFY: '分类',
   ALL: 'All',
   MINE: '我的',
@@ -25,9 +24,8 @@ export default {
   SOURCE_CODE_LICENSE: '源代码License',
   ENTER_SOURCE_CODE: '请填写源码地址',
   ENTER_LICENSE: '请选择License',
-  SELECT_LICENSE: '选择License',
   ENTER_SIG: '请选择SIG，若没有请选择 other',
-  SELECT_SIG: '选择sig组',
+  SELECT: '选择',
   PLATFORM: '平台',
   SUBMIT: '提交申请',
   CANCEL: 'Cancel',
