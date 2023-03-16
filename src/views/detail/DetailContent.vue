@@ -28,7 +28,7 @@ const contentData = computed(() => [
   },
   {
     key: 'license',
-    label: 'License',
+    label: t('software.SOURCE_CODE_LICENSE'),
   },
   {
     key: 'sig',
