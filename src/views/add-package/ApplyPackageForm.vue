@@ -166,6 +166,7 @@ const selectLicense = (e: string) => {
         ></el-input>
       </el-form-item>
       <el-form-item
+        class="form-gap"
         :rules="rules"
         :label="t('software.SOURCE_CODE')"
         prop="source_code"
@@ -176,7 +177,13 @@ const selectLicense = (e: string) => {
           :placeholder="t('software.ENTER_SOURCE_CODE')"
         ></el-input>
       </el-form-item>
-      <el-form-item :rules="rules" label="License" prop="license" required>
+      <el-form-item
+        class="form-gap"
+        :rules="rules"
+        :label="t('software.SOURCE_CODE_LICENSE')"
+        prop="license"
+        required
+      >
         <div class="select-btn">
           <el-input
             v-model="form.license"
