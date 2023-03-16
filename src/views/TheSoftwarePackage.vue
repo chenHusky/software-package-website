@@ -5,17 +5,21 @@ import ImportedList from './list/ImportedList.vue';
 import { FormRadioConfig } from '@/shared/@types/formRadio.interface';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useStoreData } from '@/shared/login';
 
 const { t } = useI18n();
+const { guardAuthClient } = useStoreData();
 
 const formRadioOption = computed((): FormRadioConfig[] => [
   {
     label: t('software.CLASSIFY'),
     id: 'importer',
-    options: [
-      { label: t('software.ALL'), value: 'all' },
-      { label: t('software.MINE'), value: 'mine' },
-    ],
+    options: guardAuthClient.value.username
+      ? [
+          { label: t('software.ALL'), value: 'all' },
+          { label: t('software.MINE'), value: 'mine' },
+        ]
+      : [{ label: t('software.ALL'), value: 'all' }],
   },
   {
     label: t('software.STATE'),

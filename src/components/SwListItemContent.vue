@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import IconUser from '~icons/app/icon-user.svg';
 import IconCalendar from '~icons/app/icon-calendar.svg';
-import { useI18n } from 'vue-i18n';
 
 defineProps({
   data: {
@@ -9,8 +8,6 @@ defineProps({
     default: () => ({}),
   },
 });
-
-const { t } = useI18n();
 </script>
 
 <template>
@@ -57,7 +54,7 @@ const { t } = useI18n();
   color: var(--o-color-neutral5);
   display: grid;
   align-items: center;
-  grid-template-columns: max-content 86px max-content max-content;
+  grid-template-columns: max-content minmax(86px, max-content) max-content max-content;
   gap: 8px;
   .icon {
     font-size: var(--o-font-size-h8);
