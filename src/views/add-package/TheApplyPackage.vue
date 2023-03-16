@@ -25,7 +25,7 @@ const cancel = () => {
   <AppContent>
     <OCard>
       <h1>{{ t('software.APPLY_NEW_PACKAGE') }}</h1>
-      <NotFound v-if="token">
+      <NotFound v-if="!token">
         <template #title>
           <p>
             {{ t('common.PLEASE') }}
