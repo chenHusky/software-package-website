@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { FeatureInfo } from '@/shared/@types/interface';
-import { PropType } from 'vue';
+import { useLangStore } from '@/stores';
+import { computed, PropType } from 'vue';
 
 defineProps({
   info: {
@@ -9,6 +10,9 @@ defineProps({
       return [];
     },
   },
+});
+const lang = computed(() => {
+  return useLangStore().lang;
 });
 const emits = defineEmits(['sig-click']);
 
@@ -24,7 +28,13 @@ const handleSigClick = (sigName: string) => {
       :key="feature.featureName"
       class="landscape-feature-item"
     >
-      <div class="feature-item-title">{{ feature.featureName }}</div>
+      <div class="feature-item-title">
+        {{
+          lang === 'zh'
+            ? feature.featureName
+            : feature.featureName.replaceAll('/', '/ ')
+        }}
+      </div>
       <ul class="feature-item-sig">
         <li
           v-for="sig in feature.sigs"
