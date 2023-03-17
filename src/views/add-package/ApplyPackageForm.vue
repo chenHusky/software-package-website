@@ -16,7 +16,7 @@ const props = defineProps({
   // 默认值从uri获取
   formFromUri: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 });
 const { t } = useI18n();

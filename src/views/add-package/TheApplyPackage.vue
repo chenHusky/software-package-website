@@ -35,6 +35,7 @@ const cancel = () => {
       </NotFound>
       <ApplyPackageForm
         v-else
+        :form-from-uri="true"
         @submit="submit"
         @cancel="cancel"
       ></ApplyPackageForm>

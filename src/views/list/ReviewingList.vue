@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { querySoftwareList } from '@/api/api-package';
+import { useStoreData } from '@/shared/login';
 import { ref, watch } from 'vue';
 
 const props = defineProps({
@@ -13,6 +14,7 @@ const props = defineProps({
     default: [10, 20, 50, 100],
   },
 });
+const { guardAuthClient } = useStoreData();
 
 const total = ref(0);
 const listData = ref<any>([]);
@@ -30,7 +32,7 @@ const initData = () => {
   };
   const obj: any = {};
   if (props.params.importer === 'mine') {
-    obj['importer'] = 'ceshi';
+    obj['importer'] = guardAuthClient.value.username;
   }
   Object.assign(param, obj);
   querySoftwareList(param).then((res) => {
