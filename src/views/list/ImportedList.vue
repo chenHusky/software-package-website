@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { querySoftwareList } from '@/api/api-package';
 import { ProTableColConfig } from '@/shared/@types/protable.interface';
+import { useStoreData } from '@/shared/login';
 import { ref, shallowRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -12,6 +13,7 @@ const props = defineProps({
 });
 
 const { t } = useI18n();
+const { guardAuthClient } = useStoreData();
 
 const tableConfig = ref<ProTableColConfig[]>([
   {
@@ -71,7 +73,7 @@ const initData = (filter?: any) => {
   };
   const obj: any = {};
   if (props.importer === 'mine') {
-    obj['importer'] = 'ceshi';
+    obj['importer'] = guardAuthClient.value.username;
   }
   Object.assign(param, obj);
   querySoftwareList(param).then((res) => {
