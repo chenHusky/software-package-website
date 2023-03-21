@@ -89,11 +89,6 @@ export function useStoreData() {
   return stores;
 }
 
-// 刷新页面后store内参数被清除，需重新设定
-export function setStoreData(community = 'openeuler') {
-  refreshInfo(community);
-}
-
 // 刷新后重新请求登录用户信息
 export function refreshInfo(community = 'openeuler') {
   const { token } = getUserAuth();
@@ -106,35 +101,6 @@ export function refreshInfo(community = 'openeuler') {
       }
     });
   }
-}
-
-// 判断是否为有效登录状态
-export function isLogined() {
-  return new Promise((resolve, reject) => {
-    const { token } = getUserAuth();
-    if (token) {
-      queryPermission({ community: 'openeuler' })
-        .then((res) => {
-          const { data } = res;
-          if (data) {
-            resolve(true);
-          } else {
-            reject(false);
-          }
-        })
-        .catch(() => reject(false));
-    } else {
-      reject(false);
-    }
-  });
-}
-
-export function hasPermission(per: string) {
-  const { guardAuthClient } = useStoreData();
-  if (Array.isArray(guardAuthClient?.value?.permissions)) {
-    return guardAuthClient.value.permissions.includes(per);
-  }
-  return false;
 }
 
 export function getLanguage() {

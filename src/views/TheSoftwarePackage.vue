@@ -2,6 +2,7 @@
 import AppContent from '@/components/AppContent.vue';
 import ReviewingList from './list/ReviewingList.vue';
 import ImportedList from './list/ImportedList.vue';
+import SchematicDiagram from './list/SchematicDiagram.vue';
 import { FormRadioConfig } from '@/shared/@types/formRadio.interface';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -43,10 +44,13 @@ const formRadioValue = ref({
   <div class="package">
     <AppContent>
       <OCard class="filter">
-        <FormRadio
-          v-model="formRadioValue"
-          :option="formRadioOption"
-        ></FormRadio>
+        <div class="filter-header">
+          <FormRadio
+            v-model="formRadioValue"
+            :option="formRadioOption"
+          ></FormRadio>
+          <SchematicDiagram></SchematicDiagram>
+        </div>
       </OCard>
       <OCard>
         <ImportedList
@@ -66,6 +70,10 @@ const formRadioValue = ref({
   }
   .filter {
     margin-bottom: var(--o-spacing-h4);
+  }
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

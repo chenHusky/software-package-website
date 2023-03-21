@@ -298,6 +298,11 @@ const sizeChange = () => {
                   </ElDropdown>
                 </div>
               </template>
+              <template v-if="item.type === 'link'" #default="scope">
+                <a @click="item.click && item.click(scope.row)">
+                  {{ scope.row[item.key] }}
+                </a>
+              </template>
             </ElTableColumn>
           </template>
           <template

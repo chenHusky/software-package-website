@@ -12,6 +12,10 @@ const props = defineProps({
 const { t } = useI18n();
 
 const status = computed((): any => ({
+  imported: {
+    text: t('software.INTRODUCED'),
+    color: '#002FA7',
+  },
   reviewing: {
     text: t('software.APPROVAL'),
     color: '#FEAA11',

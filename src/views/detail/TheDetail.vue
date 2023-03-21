@@ -46,6 +46,7 @@ const getDetail = () => {
     const _data = data || {};
     if (_data?.application) {
       _data.application.pkg_name = _data.pkg_name;
+      _data.application.repo_link = _data.repo_link;
     }
     detailData.value = _data;
   });
