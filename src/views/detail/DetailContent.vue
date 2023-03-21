@@ -72,6 +72,7 @@ const getContentValue = (key: string) => {
         :show-arrow="true"
         placement="top"
         trigger="click"
+        :disabled="data?.rejected_by?.length || data?.approved_by?.length !== 1"
         :content="t('software.APPROVE_APPLY_INFO')"
         propper-style="{font-size: 12px}"
       >
