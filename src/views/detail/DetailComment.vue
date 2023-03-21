@@ -1,13 +1,36 @@
 <script lang="ts" setup>
+import { translateComment } from '@/api/api-package';
+import { useStoreData } from '@/shared/login';
 import { getLastTime } from '@/shared/utils';
-import { toRefs } from 'vue';
+import { useLangStore } from '@/stores';
+import { computed, ref, toRefs } from 'vue';
+import { useRoute } from 'vue-router';
+import IconTranslate from '~icons/app/icon-link.svg';
 const props = defineProps({
   data: {
     type: Object,
     default: () => ({}),
   },
 });
+const { guardAuthClient } = useStoreData();
+const route = useRoute();
+const lang = computed(() => {
+  return useLangStore().lang;
+});
+const translateData = ref('');
 const { data } = toRefs(props);
+const translate = () => {
+  const obj = {
+    id: route.params.id,
+    cid: data.value.id,
+  };
+  const param = {
+    language: lang.value === 'zh' ? 'chinese' : 'english',
+  };
+  translateComment(obj, param).then((res) => {
+    translateData.value = res?.data?.content || '';
+  });
+};
 </script>
 <template>
   <div class="content">
@@ -19,6 +42,14 @@ const { data } = toRefs(props);
       </div>
     </div>
     <div class="text">{{ data.content }}</div>
+    <div v-if="translateData" class="translate-text text">
+      {{ translateData }}
+    </div>
+    <div v-if="guardAuthClient.username" class="operate">
+      <OIcon class="translate-btn" @click="translate">
+        <IconTranslate></IconTranslate>
+      </OIcon>
+    </div>
   </div>
 </template>
 
@@ -46,6 +77,19 @@ const { data } = toRefs(props);
   .text {
     font-size: var(--o-font-size-text);
     white-space: pre-wrap;
+  }
+  .translate-text {
+    border-top: 1px solid var(--o-color-division1);
+    padding-top: var(--o-gap-2);
+    margin-top: var(--o-gap-2);
+  }
+  .operate {
+    display: flex;
+    justify-content: end;
+  }
+  .translate-btn {
+    cursor: pointer;
+    font-size: var(--o-font_size-h2);
   }
 }
 </style>

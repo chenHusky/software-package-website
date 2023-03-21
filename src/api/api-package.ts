@@ -96,3 +96,16 @@ export function commentSoftware(id: string, params: any) {
     })
     .then((res: AxiosResponse) => res.data);
 }
+
+// 翻译评论
+export function translateComment(ids: any, params: any) {
+  const url = `/api-package/api/v1/softwarepkg/${ids.id}/review/comment/${ids.cid}/translate`;
+  const { token } = getUserAuth();
+  return request
+    .post(url, params, {
+      headers: {
+        'PRIVATE-TOKEN': token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}
