@@ -2,8 +2,10 @@
 import { querySoftwareList } from '@/api/api-package';
 import { ProTableColConfig } from '@/shared/@types/protable.interface';
 import { useStoreData } from '@/shared/login';
-import { ref, shallowRef, watch } from 'vue';
+import { useLangStore } from '@/stores';
+import { computed, ref, shallowRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
   importer: {
@@ -14,11 +16,20 @@ const props = defineProps({
 
 const { t } = useI18n();
 const { guardAuthClient } = useStoreData();
+const router = useRouter();
+const lang = computed(() => {
+  return useLangStore().lang;
+});
 
 const tableConfig = ref<ProTableColConfig[]>([
   {
     key: 'pkg_name',
     label: t('software.NAME'),
+    type: 'link',
+    click: (data: any) => {
+      const language = lang.value === 'zh' ? 'zh' : 'en';
+      router.push(`/${language}/package-detail/${data.id}`);
+    },
   },
   {
     key: 'desc',
@@ -51,8 +62,8 @@ const tableConfig = ref<ProTableColConfig[]>([
     label: t('software.SUBMITTER'),
   },
   {
-    key: 'source_code',
-    label: t('software.SOURCE_CODE'),
+    key: 'repo_link',
+    label: t('software.REPO_LINK'),
   },
   {
     key: 'applied_at',
@@ -74,6 +85,12 @@ const initData = (filter?: any) => {
   const obj: any = {};
   if (props.importer === 'mine') {
     obj['importer'] = guardAuthClient.value.username;
+  }
+  const { filters = [] } = _filter;
+  if (filters?.length) {
+    filters.forEach((item: any) => {
+      obj[item.key] = item.searchValue || item.selectValue;
+    });
   }
   Object.assign(param, obj);
   querySoftwareList(param).then((res) => {

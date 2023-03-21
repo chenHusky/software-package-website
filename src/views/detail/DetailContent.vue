@@ -38,6 +38,12 @@ const contentData = computed(() => [
     key: 'platform',
     label: t('software.PLATFORM'),
   },
+  {
+    key: 'repo_link',
+    label: t('software.REPO_LINK'),
+    hidden: data.value.phase !== 'imported',
+    bold: true,
+  },
 ]);
 
 const getPlatformLabel = (key: string) => {
@@ -91,10 +97,14 @@ const getContentValue = (key: string) => {
     </h3>
     <div class="content">
       <template v-for="item in contentData" :key="item.key">
-        <div class="label">{{ item.label }}:</div>
-        <el-scrollbar :max-height="110">
-          <div class="value">{{ getContentValue(item.key) }}</div>
-        </el-scrollbar>
+        <template v-if="!item.hidden">
+          <div class="label">{{ item.label }}:</div>
+          <el-scrollbar :max-height="110">
+            <div class="value" :class="item.bold ? 'blod' : ''">
+              {{ getContentValue(item.key) }}
+            </div>
+          </el-scrollbar>
+        </template>
       </template>
     </div>
   </div>
@@ -125,6 +135,9 @@ const getContentValue = (key: string) => {
   }
   .value {
     white-space: pre-wrap;
+  }
+  .blod {
+    font-weight: bold;
   }
 }
 </style>

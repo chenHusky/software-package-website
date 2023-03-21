@@ -40,4 +40,5 @@ export default {
   OPERATE: '操作',
   SUBMITTER: '提交人',
   SUBMIT_TIME: '提交时间',
+  REPO_LINK: '仓库地址',
 };

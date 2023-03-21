@@ -36,29 +36,3 @@ export function queryPermission(params: queryPermissionParams) {
       }
     });
 }
-
-/**
- * 获取idtoken用于退出
- */
-
-export function queryIDToken() {
-  const url = '/api-omapi/oneid/logout';
-  const { token } = getUserAuth();
-  return request
-    .get(url, {
-      $doException: true,
-      headers: {
-        token,
-      },
-    })
-    .then((res: AxiosResponse) => res.data)
-    .catch((err) => {
-      const message = err?.response?.data?.message || '';
-      if (message && message !== 'token expires') {
-        ElMessage({
-          type: 'error',
-          message: err.message,
-        });
-      }
-    });
-}

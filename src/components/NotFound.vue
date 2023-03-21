@@ -9,7 +9,7 @@ const { lang } = useLangStore();
     <img class="nofound-img" :src="notFoundImg" alt="404" />
     <p class="nofound-text">
       <slot name="title">
-        {{ lang === 'zh' ? '暂无数据' : 'NotFound !' }}
+        {{ lang === 'zh' ? '暂无数据' : 'No data available.' }}
       </slot>
     </p>
   </div>
