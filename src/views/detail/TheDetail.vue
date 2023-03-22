@@ -71,6 +71,7 @@ const submitComment = (e: string) => {
     comment: e,
   };
   commentSoftware(route.params.id as string, params).then(() => {
+    showTextarea.value = false;
     initData();
   });
 };
@@ -83,12 +84,16 @@ const operateOption = computed(() => [
   {
     value: 'approve',
     label: t('software.APPROVE'),
-    visible: true,
+    visible:
+      detailData.value.importer &&
+      detailData.value.importer !== guardAuthClient.value.username,
   },
   {
     value: 'reject',
     label: t('software.REJECT'),
-    visible: true,
+    visible:
+      detailData.value.importer &&
+      detailData.value.importer !== guardAuthClient.value.username,
   },
   {
     value: 'abandon',

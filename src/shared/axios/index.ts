@@ -13,6 +13,8 @@ import setConfig from './setConfig';
 import { ElLoading, ElMessage } from 'element-plus';
 import { LoadingInstance } from 'element-plus/lib/components/loading/src/loading';
 import { tokenFailIndicateLogin } from '../login';
+import errI18n from '@/i18n/error';
+import { useLangStore } from '@/stores';
 
 interface RequestConfig<D = any> extends AxiosRequestConfig {
   data?: D;
@@ -140,10 +142,21 @@ const responseInterceptorId = request.interceptors.response.use(
     }
     const { config } = err;
     if (!(config as RequestConfig).$doException) {
-      ElMessage({
-        type: 'error',
-        message: (err?.response?.data as any)?.msg || err.message,
-      });
+      if (err?.response?.status === 400) {
+        const errcode = (err?.response?.data as any)?.code;
+        // 仅对有明确错误码做提示处理
+        if ((errI18n as any)?.[useLangStore().lang]?.[errcode]) {
+          ElMessage({
+            type: 'error',
+            message: (errI18n as any)[useLangStore().lang][errcode],
+          });
+        }
+      } else {
+        ElMessage({
+          type: 'error',
+          message: (err?.response?.data as any)?.msg || err.message,
+        });
+      }
     }
     // 非取消请求发生异常，同样将请求移除请求池
     if (!axios.isCancel(err) && config?.url) {

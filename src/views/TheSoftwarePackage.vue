@@ -57,7 +57,12 @@ const formRadioValue = ref({
           v-if="formRadioValue.phase === 'imported'"
           :importer="formRadioValue.importer"
         ></ImportedList>
-        <ReviewingList v-else :params="formRadioValue"> </ReviewingList>
+        <ReviewingList
+          v-else
+          :importer="formRadioValue.importer"
+          :phase="formRadioValue.phase"
+        >
+        </ReviewingList>
       </OCard>
     </AppContent>
   </div>
