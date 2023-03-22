@@ -90,9 +90,9 @@ export function asyncBlur(formEl: FormInstance | undefined, field: string) {
   }, 200);
 }
 
-export function getLastTime(time: string) {
+export function getLastTime(time: number) {
   const { t } = useI18n();
-  let dValue = (new Date().getTime() - new Date(time).getTime()) / 1000;
+  let dValue = time || 0;
 
   if (dValue / 60 < 1) {
     return `${Math.ceil(dValue)}${t('software.SECONDS_AGO')}`;
