@@ -21,7 +21,6 @@ const getValue = () => {
   if (textarea.value) {
     emit('submit', textarea.value);
   }
-  close();
 };
 const textarea = ref('');
 </script>

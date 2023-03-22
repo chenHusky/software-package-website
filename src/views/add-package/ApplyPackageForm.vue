@@ -198,6 +198,7 @@ const selectLicense = (e: string) => {
         <div class="select-btn">
           <el-input
             v-model="form.sig"
+            disabled
             :placeholder="t('software.ENTER_SIG')"
           ></el-input>
           <OButton type="primary" size="small" @click="visible = true">{{

@@ -101,7 +101,16 @@ const getContentValue = (key: string) => {
         <template v-if="!item.hidden">
           <div class="label">{{ item.label }}:</div>
           <el-scrollbar :max-height="110">
-            <div class="value" :class="item.bold ? 'blod' : ''">
+            <a
+              v-if="item.bold"
+              rel="noopener"
+              target="_blank"
+              class="value blod"
+              :href="getContentValue(item.key)"
+            >
+              {{ getContentValue(item.key) }}
+            </a>
+            <div v-else class="value">
               {{ getContentValue(item.key) }}
             </div>
           </el-scrollbar>

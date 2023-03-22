@@ -5,7 +5,7 @@ import { getLastTime } from '@/shared/utils';
 import { useLangStore } from '@/stores';
 import { computed, ref, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
-import IconTranslate from '~icons/app/icon-link.svg';
+import IconTranslate from '~icons/app/icon-translate.svg';
 const props = defineProps({
   data: {
     type: Object,

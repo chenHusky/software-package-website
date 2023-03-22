@@ -4,10 +4,13 @@ import { useStoreData } from '@/shared/login';
 import { ref, watch } from 'vue';
 
 const props = defineProps({
-  params: {
-    type: Object,
-    required: true,
-    default: () => ({}),
+  importer: {
+    type: String,
+    default: 'all',
+  },
+  phase: {
+    type: String,
+    default: 'reviewing',
   },
   pageSizes: {
     type: Array<number>,
@@ -28,10 +31,10 @@ const initData = () => {
   const param = {
     count_per_page: pageSize.value,
     page_num: currentPage.value,
-    phase: props.params.phase,
+    phase: props.phase,
   };
   const obj: any = {};
-  if (props.params.importer === 'mine') {
+  if (props.importer === 'mine') {
     obj['importer'] = guardAuthClient.value.username;
   }
   Object.assign(param, obj);
@@ -45,11 +48,10 @@ const initData = () => {
   });
 };
 watch(
-  () => props.params,
+  () => [props.importer, props.phase],
   () => initData(),
   {
     immediate: true,
-    deep: true,
   }
 );
 </script>

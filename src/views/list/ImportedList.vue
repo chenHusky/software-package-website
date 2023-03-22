@@ -64,6 +64,11 @@ const tableConfig = ref<ProTableColConfig[]>([
   {
     key: 'repo_link',
     label: t('software.REPO_LINK'),
+    type: 'link',
+    click: (data: any) => {
+      const opener = window.open(data.repo_link, '_black') as Window;
+      opener.opener = null;
+    },
   },
   {
     key: 'applied_at',
