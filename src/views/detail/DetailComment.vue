@@ -38,7 +38,7 @@ const translate = () => {
       <ProfilePhoto :name="data.author"></ProfilePhoto>
       <div>
         <div class="name">{{ data.author }}</div>
-        <div class="time">{{ getLastTime(data.created_at) }}</div>
+        <div class="time">{{ getLastTime(data.difference) }}</div>
       </div>
     </div>
     <div class="text">{{ data.content }}</div>
