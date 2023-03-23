@@ -6,13 +6,11 @@ import { useLangStore } from '@/stores';
 import AppHeader from '@/components/AppHeader.vue';
 import AppFooter from '@/components/AppFooter.vue';
 
-import QuickIssueImg from '@/assets/category/quick-issue/quick-bg.png';
 import { refreshInfo } from '@/shared/login';
 
 refreshInfo();
 const { locale } = useI18n();
 const langStore = useLangStore();
-const QuickIssueBg = `url(${QuickIssueImg})`;
 watch(
   () => langStore.lang,
   (val) => {
@@ -31,9 +29,9 @@ watch(
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: v-bind('QuickIssueBg');
+  background-image: url(@/assets/category/background.jpg);
   background-position: center top;
-  background-size: 100% auto;
+  background-size: cover;
   background-repeat: repeat;
   background-color: rgb(1, 10, 51);
 }
