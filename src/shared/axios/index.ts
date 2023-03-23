@@ -12,7 +12,7 @@ import handleError from './handleError';
 import setConfig from './setConfig';
 import { ElLoading, ElMessage } from 'element-plus';
 import { LoadingInstance } from 'element-plus/lib/components/loading/src/loading';
-import { tokenFailIndicateLogin } from '../login';
+import { saveUserAuth, tokenFailIndicateLogin } from '../login';
 import errI18n from '@/i18n/error';
 import { useLangStore } from '@/stores';
 
@@ -146,6 +146,9 @@ const responseInterceptorId = request.interceptors.response.use(
         const errcode = (err?.response?.data as any)?.code;
         // 仅对有明确错误码做提示处理
         if ((errI18n as any)?.[useLangStore().lang]?.[errcode]) {
+          if ((errI18n as any)[useLangStore().lang][errcode] === 'bad_request_havent_login') {
+            saveUserAuth();
+          }
           ElMessage({
             type: 'error',
             message: (errI18n as any)[useLangStore().lang][errcode],
