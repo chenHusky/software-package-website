@@ -29,7 +29,7 @@ watch(
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url(@/assets/category/background.jpg);
+  background-image: url(@/assets/category/background.png);
   background-position: center top;
   background-size: cover;
   background-repeat: repeat;
