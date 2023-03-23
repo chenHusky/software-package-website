@@ -73,11 +73,13 @@ export function showGuard() {
 }
 
 // token失效跳转首页
-export function tokenFailIndicateLogin() {
+export function tokenFailIndicateLogin(isRefresh = true) {
   saveUserAuth();
   const { guardAuthClient } = useStoreData();
   guardAuthClient.value = {};
-  goToHome();
+  if (isRefresh) {
+    goToHome();
+  }
 }
 
 /**
