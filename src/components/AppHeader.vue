@@ -6,7 +6,7 @@ import { useLangStore } from '@/stores';
 import OIcon from 'opendesign/icon/OIcon.vue';
 
 import { useI18n } from 'vue-i18n';
-import { showGuard, logout, getUserAuth, useStoreData } from '@/shared/login';
+import { showGuard, logout, useStoreData } from '@/shared/login';
 import communityLogoWhite from '@/assets/openeuler-logo.png';
 import IconDown from '~icons/app/icon-chevron-down.svg';
 import IconLogin from '~icons/app/icon-login.svg';
@@ -18,7 +18,6 @@ const lang = computed(() => {
   return useLangStore().lang;
 });
 
-const { token } = getUserAuth();
 const { guardAuthClient } = useStoreData();
 
 // 选择语言;
@@ -71,7 +70,7 @@ const jumpToHome = () => {
       <div class="out-box"></div>
 
       <div class="opt-user">
-        <div v-if="token">
+        <div v-if="guardAuthClient?.username">
           <div class="opt-info">
             <img
               v-if="guardAuthClient.photo"
