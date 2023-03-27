@@ -24,7 +24,7 @@ export default {
   SOURCE_CODE: 'Spec URL',
   SOURCE_CODE_LICENSE: 'SRPM URL',
   ENTER_SOURCE_CODE: 'Enter the Spec URL.',
-  ENTER_LICENSE: 'Select a SRPM URL',
+  ENTER_LICENSE: 'Enter a SRPM URL',
   ENTER_SIG: 'Select a SIG',
   SELECT: 'Select',
   PLATFORM: 'Platform',

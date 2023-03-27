@@ -23,7 +23,7 @@ export default {
   SOURCE_CODE: 'Spec URL',
   SOURCE_CODE_LICENSE: 'SRPM URL',
   ENTER_SOURCE_CODE: '请填写Spec URL',
-  ENTER_LICENSE: '请选择SRPM URL',
+  ENTER_LICENSE: '请填写SRPM URL',
   ENTER_SIG: '请选择SIG',
   SELECT: '选择',
   PLATFORM: '平台',
