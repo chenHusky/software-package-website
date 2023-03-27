@@ -55,6 +55,10 @@ const jumpToHome = () => {
   const language = lang.value === 'zh' ? 'zh' : 'en';
   router.push(`/${language}/package`);
 };
+const jumpToApply = () => {
+  const language = lang.value === 'zh' ? 'zh' : 'en';
+  router.push(`/${language}/apply-package`);
+};
 </script>
 
 <template>
@@ -118,7 +122,7 @@ const jumpToHome = () => {
         </el-dropdown>
       </div>
 
-      <a :href="`/${lang}/apply-package`" class="new-issue">
+      <a class="new-issue" @click="jumpToApply">
         <OButton>{{ t('software.SOFTWARE_PACKAGE') }} </OButton>
       </a>
     </div>
