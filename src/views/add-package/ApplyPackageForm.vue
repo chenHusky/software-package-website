@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import SelectSigModal from './SelectSigModal.vue';
-import SelectLicenseModal from './SelectLicenseModal.vue';
 import { onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { FormInstance, FormItemRule } from 'element-plus';
@@ -23,7 +22,6 @@ const { t } = useI18n();
 const route = useRoute();
 
 const visible = ref(false);
-const licenseVisible = ref(false);
 const formRef = ref<FormInstance>();
 const typesList = [
   {
@@ -105,11 +103,6 @@ const selectSig = (e: string) => {
   visible.value = false;
   formValidator(formRef.value, 'sig').subscribe();
 };
-const selectLicense = (e: string) => {
-  form.value.license = e;
-  licenseVisible.value = false;
-  formValidator(formRef.value, 'license').subscribe();
-};
 </script>
 <template>
   <div>
@@ -189,9 +182,6 @@ const selectLicense = (e: string) => {
             v-model="form.license"
             :placeholder="t('software.ENTER_LICENSE')"
           ></el-input>
-          <OButton type="primary" size="small" @click="licenseVisible = true">{{
-            t('software.SELECT')
-          }}</OButton>
         </div>
       </el-form-item>
       <el-form-item :rules="rules" label="SIG" prop="sig" required>
@@ -232,10 +222,6 @@ const selectLicense = (e: string) => {
     </footer>
   </div>
   <SelectSigModal v-model="visible" @select="selectSig"></SelectSigModal>
-  <SelectLicenseModal
-    v-model="licenseVisible"
-    @select="selectLicense"
-  ></SelectLicenseModal>
 </template>
 
 <style scoped lang="scss">
