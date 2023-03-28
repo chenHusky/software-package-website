@@ -86,6 +86,15 @@ const requiredRules: FormItemRule[] = [
 ];
 const rules = ref(requiredRules);
 
+const urlRules = ref<FormItemRule[]>([
+  ...requiredRules,
+  {
+    type: 'url',
+    message: t('software.ENTER_URL'),
+    trigger: 'blur',
+  },
+]);
+
 const emits = defineEmits(['submit', 'cancel']);
 const submit = (formEl: FormInstance | undefined) => {
   formValidator(formEl).subscribe((data) => {
@@ -160,7 +169,7 @@ const selectSig = (e: string) => {
       </el-form-item>
       <el-form-item
         class="form-gap"
-        :rules="rules"
+        :rules="urlRules"
         :label="t('software.SOURCE_CODE')"
         prop="spec_url"
         required
@@ -172,7 +181,7 @@ const selectSig = (e: string) => {
       </el-form-item>
       <el-form-item
         class="form-gap"
-        :rules="rules"
+        :rules="urlRules"
         :label="t('software.SOURCE_CODE_LICENSE')"
         prop="src_rpm_url"
         required
