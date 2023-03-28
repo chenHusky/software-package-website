@@ -23,11 +23,11 @@ const contentData = computed(() => [
     label: t('software.REASON'),
   },
   {
-    key: 'source_code',
+    key: 'spec_url',
     label: t('software.SOURCE_CODE'),
   },
   {
-    key: 'license',
+    key: 'src_rpm_url',
     label: t('software.SOURCE_CODE_LICENSE'),
   },
   {

@@ -39,8 +39,8 @@ const form = ref({
   platform: 'gitee',
   reason: '',
   sig: '',
-  license: '',
-  source_code: '',
+  src_rpm_url: '',
+  spec_url: '',
 });
 watch(
   () => props.data,
@@ -64,8 +64,8 @@ const setDefaultForm = () => {
       'platform',
       'reason',
       'sig',
-      'license',
-      'source_code',
+      'src_rpm_url',
+      'spec_url',
     ];
     const params = keys.reduce((pre: any, next: any) => {
       if (query[next]) {
@@ -162,11 +162,11 @@ const selectSig = (e: string) => {
         class="form-gap"
         :rules="rules"
         :label="t('software.SOURCE_CODE')"
-        prop="source_code"
+        prop="spec_url"
         required
       >
         <el-input
-          v-model="form.source_code"
+          v-model="form.spec_url"
           :placeholder="t('software.ENTER_SOURCE_CODE')"
         ></el-input>
       </el-form-item>
@@ -174,12 +174,12 @@ const selectSig = (e: string) => {
         class="form-gap"
         :rules="rules"
         :label="t('software.SOURCE_CODE_LICENSE')"
-        prop="license"
+        prop="src_rpm_url"
         required
       >
         <div class="select-btn">
           <el-input
-            v-model="form.license"
+            v-model="form.src_rpm_url"
             :placeholder="t('software.ENTER_LICENSE')"
           ></el-input>
         </div>
