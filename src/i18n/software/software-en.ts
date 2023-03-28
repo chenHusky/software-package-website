@@ -14,7 +14,7 @@ export default {
   DAYS_AGO: ' days ago',
   YEARS_AGO: ' years ago',
   NOT_EMPTY: 'Can not be empty',
-  ENTER_URL: 'Enter the vaild url',
+  ENTER_URL: 'Enter the vaild URL',
   NAME: 'Name',
   ENTER_NAME: 'Enter a software package name.',
   DESC: 'Description',

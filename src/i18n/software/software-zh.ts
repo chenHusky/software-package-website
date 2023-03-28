@@ -14,7 +14,7 @@ export default {
   DAYS_AGO: '天前',
   YEARS_AGO: '年前',
   NOT_EMPTY: '输入不能为空',
-  ENTER_URL: '输入正确的url',
+  ENTER_URL: '输入正确的URL',
   NAME: '名称',
   ENTER_NAME: '请填写软件包名称',
   DESC: '简介',
