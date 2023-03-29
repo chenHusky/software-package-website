@@ -40,6 +40,8 @@ export default {
   APPROVE: 'Approve',
   ABANDON: 'Discard',
   OPERATE: 'Operate',
+  MODIFY: 'Modify',
+  RESTART_CI: 'Restart CI',
   SUBMITTER: 'Submitted By',
   SUBMIT_TIME: 'Submitted',
   REPO_LINK: 'Repo',
