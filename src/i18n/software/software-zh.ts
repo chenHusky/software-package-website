@@ -42,4 +42,9 @@ export default {
   SUBMITTER: '提交人',
   SUBMIT_TIME: '提交时间',
   REPO_LINK: '仓库地址',
+  SIGN_CLA: '签署CLA',
+  SIGN_CLA_TIPS1: '检测到您还未签署CLA，无法贡献软件包。请前往',
+  SIGN_CLA_TIPS2: 'CLA签署页面',
+  TO_HOME: '返回首页',
+  SIGN_CLA_TOO: '我已签署CLA',
 };

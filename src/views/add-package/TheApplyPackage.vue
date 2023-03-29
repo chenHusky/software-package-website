@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import ApplyPackageForm from './ApplyPackageForm.vue';
+import ClaModal from './ClaModal.vue';
 import { useI18n } from 'vue-i18n';
 import { getUserAuth, showGuard } from '@/shared/login';
-import { addSoftware } from '@/api/api-package';
+import { addSoftware, getVerifyCla } from '@/api/api-package';
 import { useLangStore } from '@/stores';
 import { useRouter } from 'vue-router';
+import { onMounted, ref } from 'vue';
 
 const { token } = getUserAuth();
 const { t } = useI18n();
@@ -19,6 +21,22 @@ const submit = (form: any) => {
 };
 const cancel = () => {
   router.push(`/${useLangStore().lang}/package`);
+};
+
+onMounted(() => {
+  hasCla();
+});
+const claVisble = ref(false);
+const hasCla = () => {
+  if (token) {
+    getVerifyCla()
+      .then(() => {
+        claVisble.value = false;
+      })
+      .catch(() => {
+        claVisble.value = true;
+      });
+  }
 };
 </script>
 <template>
@@ -40,6 +58,7 @@ const cancel = () => {
         @cancel="cancel"
       ></ApplyPackageForm>
     </OCard>
+    <ClaModal v-model="claVisble"></ClaModal>
   </AppContent>
 </template>
 
