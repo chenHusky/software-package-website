@@ -31,7 +31,7 @@ const hasCla = () => {
   if (token) {
     getVerifyCla()
       .then((res) => {
-        const { signed = false } = res?.data;
+        const { signed = false } = res?.data || {};
         claVisble.value = !signed;
       })
       .catch(() => {
