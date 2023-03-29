@@ -109,3 +109,16 @@ export function translateComment(ids: any, params: any) {
     })
     .then((res: AxiosResponse) => res.data);
 }
+
+// 软件包详情
+export function getVerifyCla() {
+  const url = `/api-package/api/v1/cla`;
+  const { token } = getUserAuth();
+  return request
+    .get(url, {
+      headers: {
+        'PRIVATE-TOKEN': token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}

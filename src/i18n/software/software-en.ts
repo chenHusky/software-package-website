@@ -43,4 +43,10 @@ export default {
   SUBMITTER: 'Submitted By',
   SUBMIT_TIME: 'Submitted',
   REPO_LINK: 'Repo',
+  SIGN_CLA: 'Sign CLA',
+  SIGN_CLA_TIPS1:
+    'You have not signed the CLA and cannot contribute software packages.',
+  SIGN_CLA_TIPS2: 'Sign CLA',
+  TO_HOME: 'Back to Homepage',
+  SIGN_CLA_TOO: 'Already Signed',
 };
