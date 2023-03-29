@@ -30,8 +30,9 @@ const claVisble = ref(false);
 const hasCla = () => {
   if (token) {
     getVerifyCla()
-      .then(() => {
-        claVisble.value = false;
+      .then((res) => {
+        const { signed = false } = res?.data;
+        claVisble.value = !signed;
       })
       .catch(() => {
         claVisble.value = true;
