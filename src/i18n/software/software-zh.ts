@@ -39,6 +39,8 @@ export default {
   APPROVE: '同意',
   ABANDON: '放弃',
   OPERATE: '操作',
+  MODIFY: '修改',
+  RESTART_CI: '重新运行CI',
   SUBMITTER: '提交人',
   SUBMIT_TIME: '提交时间',
   REPO_LINK: '仓库地址',

@@ -69,7 +69,10 @@ export function goToHome() {
 export function showGuard() {
   const origin = import.meta.env.VITE_LOGIN_ORIGIN;
   const { lang } = getLanguage();
-  location.href = `${origin}/login?redirect_uri=${location.href}&lang=${lang}`;
+  location.href = `${origin}/login?redirect_uri=${location.href.replaceAll(
+    '&',
+    '%26'
+  )}&lang=${lang}`;
 }
 
 // token失效跳转首页
