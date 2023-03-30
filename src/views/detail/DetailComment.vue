@@ -44,7 +44,7 @@ const translate = () => {
     <v-md-preview :text="data.content"></v-md-preview>
     <v-md-preview
       v-if="translateData"
-      :text="data.content"
+      :text="translateData"
       class="translate-text"
     >
     </v-md-preview>
