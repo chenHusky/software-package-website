@@ -174,7 +174,7 @@ const operate = (
         ></ApplyPackageForm>
       </div>
       <div class="content-padding reply">
-        <div class="btns">
+        <div v-if="detailData.phase !== 'imported'" class="btns">
           <OButton type="primary" size="small" @click="showTextarea = true">
             {{ t('software.REPLY') }}
             <OIcon style="font-size: 20px"><IconComments></IconComments></OIcon>
