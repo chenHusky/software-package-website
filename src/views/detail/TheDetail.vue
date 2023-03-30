@@ -13,6 +13,7 @@ import {
   commentSoftware,
   getSoftwareDetail,
   rejectSoftware,
+  rerunCI,
 } from '@/api/api-package';
 import { useRoute } from 'vue-router';
 import { useStoreData } from '@/shared/login';
@@ -141,7 +142,7 @@ const operate = (
       isModify.value = true;
     },
     restart: () => {
-      abandonSoftware(id).then(() => {
+      rerunCI(id).then(() => {
         initData();
       });
     },

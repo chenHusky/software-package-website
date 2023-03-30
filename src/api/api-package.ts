@@ -61,6 +61,18 @@ export function modifySoftware(id: string, params: any) {
     .then((res: AxiosResponse) => res.data);
 }
 
+// 重启ci
+export function rerunCI(id: string) {
+  const url = `/api-package/api/v1/softwarepkg/${id}/review/rerunci`;
+  const { token } = getUserAuth();
+  return request
+    .put(url, undefined, {
+      headers: {
+        'PRIVATE-TOKEN': token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}
 // 放弃申请软件包
 export function abandonSoftware(id: string) {
   const url = `/api-package/api/v1/softwarepkg/${id}/review/abandon`;
@@ -126,7 +138,7 @@ export function translateComment(ids: any, params: any) {
     .then((res: AxiosResponse) => res.data);
 }
 
-// 软件包详情
+// 是否填写cla
 export function getVerifyCla() {
   const url = `/api-package/api/v1/cla`;
   const { token } = getUserAuth();
