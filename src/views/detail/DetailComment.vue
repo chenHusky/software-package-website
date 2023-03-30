@@ -41,10 +41,13 @@ const translate = () => {
         <div class="time">{{ getLastTime(data.since_creation) }}</div>
       </div>
     </div>
-    <div class="text">{{ data.content }}</div>
-    <div v-if="translateData" class="translate-text text">
-      {{ translateData }}
-    </div>
+    <v-md-preview :text="data.content"></v-md-preview>
+    <v-md-preview
+      v-if="translateData"
+      :text="data.content"
+      class="translate-text"
+    >
+    </v-md-preview>
     <div v-if="guardAuthClient.username" class="operate">
       <OIcon class="translate-btn" @click="translate">
         <IconTranslate></IconTranslate>

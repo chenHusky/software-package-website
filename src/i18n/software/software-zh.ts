@@ -49,4 +49,5 @@ export default {
   SIGN_CLA_TIPS2: 'CLA签署页面',
   TO_HOME: '返回首页',
   SIGN_CLA_TOO: '我已签署CLA',
+  ONLY_TC_OPT: '只有TC成员可以执行此操作',
 };

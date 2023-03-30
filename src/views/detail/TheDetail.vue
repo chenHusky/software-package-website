@@ -8,7 +8,7 @@ import ApplyPackageForm from '../add-package/ApplyPackageForm.vue';
 import IconComments from '~icons/app/icon-comments.svg';
 import {
   abandonSoftware,
-  addSoftware,
+  modifySoftware,
   approveSoftware,
   commentSoftware,
   getSoftwareDetail,
@@ -26,8 +26,10 @@ const submit = (form: any) => {
   const param = {
     ...form,
   };
-  addSoftware(param).then(() => {
+  modifySoftware(route.params.id as string, param).then(() => {
+    Object.assign(detailData.value.application, form);
     isModify.value = false;
+    initData();
   });
 };
 const cancel = () => {
@@ -76,14 +78,12 @@ const submitComment = (e: string) => {
   });
 };
 
-const operateDropdown = ref();
-const showOperate = () => {
-  operateDropdown.value.handleOpen();
-};
 const operateOption = computed(() => [
   {
     value: 'approve',
     label: t('software.APPROVE'),
+    type: 'primary',
+    tooltip: t('software.ONLY_TC_OPT'),
     visible:
       detailData.value.importer &&
       detailData.value.importer !== guardAuthClient.value.username,
@@ -91,19 +91,40 @@ const operateOption = computed(() => [
   {
     value: 'reject',
     label: t('software.REJECT'),
+    type: 'primary',
+    tooltip: t('software.ONLY_TC_OPT'),
     visible:
       detailData.value.importer &&
       detailData.value.importer !== guardAuthClient.value.username,
   },
   {
+    value: 'modify',
+    label: t('software.MODIFY'),
+    type: 'primary',
+    visible:
+      detailData.value.importer &&
+      detailData.value.importer === guardAuthClient.value.username,
+  },
+  {
+    value: 'restart',
+    label: t('software.RESTART_CI'),
+    type: 'primary',
+    visible:
+      detailData.value.importer &&
+      detailData.value.importer === guardAuthClient.value.username,
+  },
+  {
     value: 'abandon',
     label: t('software.ABANDON'),
+    type: '',
     visible:
       detailData.value.importer &&
       detailData.value.importer === guardAuthClient.value.username,
   },
 ]);
-const operate = (key: 'approve' | 'reject' | 'abandon') => {
+const operate = (
+  key: 'approve' | 'reject' | 'abandon' | 'modify' | 'restart'
+) => {
   const id = route.params.id as string;
   const eventObj = {
     approve: () => {
@@ -113,6 +134,14 @@ const operate = (key: 'approve' | 'reject' | 'abandon') => {
     },
     reject: () => {
       rejectSoftware(id).then(() => {
+        initData();
+      });
+    },
+    modify: () => {
+      isModify.value = true;
+    },
+    restart: () => {
+      abandonSoftware(id).then(() => {
         initData();
       });
     },
@@ -150,26 +179,25 @@ const operate = (key: 'approve' | 'reject' | 'abandon') => {
             {{ t('software.REPLY') }}
             <OIcon style="font-size: 20px"><IconComments></IconComments></OIcon>
           </OButton>
-          <el-dropdown
-            ref="operateDropdown"
-            trigger="contextmenu"
-            @command="operate"
-          >
-            <OButton type="primary" size="small" @click="showOperate">
-              {{ t('software.OPERATE') }}
-            </OButton>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <template v-for="item in operateOption" :key="item.value">
-                  <el-dropdown-item v-if="item.visible" :command="item.value">
-                    <div style="width: 80px; text-align: center">
-                      {{ item.label }}
-                    </div>
-                  </el-dropdown-item>
-                </template>
-              </el-dropdown-menu>
+          <div class="operate">
+            <template v-for="item in operateOption" :key="item.value">
+              <el-tooltip
+                :disabled="!item.tooltip"
+                :content="item.tooltip"
+                placement="top"
+                effect="light"
+              >
+                <OButton
+                  v-if="item.visible"
+                  :type="item.type"
+                  size="small"
+                  @click="operate(item.value as any)"
+                >
+                  {{ item.label }}
+                </OButton>
+              </el-tooltip>
             </template>
-          </el-dropdown>
+          </div>
         </div>
         <CommentsModal
           v-model="showTextarea"
@@ -207,9 +235,10 @@ const operate = (key: 'approve' | 'reject' | 'abandon') => {
   .btns {
     display: flex;
     justify-content: space-between;
+    .operate {
+      display: flex;
+      column-gap: var(--o-spacing-h5);
+    }
   }
-}
-.operate-option {
-  width: 100px;
 }
 </style>
