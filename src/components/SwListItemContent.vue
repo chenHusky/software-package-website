@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import IconUser from '~icons/app/icon-user.svg';
 import IconCalendar from '~icons/app/icon-calendar.svg';
+import IconCi from '~icons/app/icon-ci.svg';
 
 defineProps({
   data: {
@@ -8,6 +9,23 @@ defineProps({
     default: () => ({}),
   },
 });
+const getCiStatus = (status: any) => {
+  const ciStatus: any = {
+    'ci-waiting': {
+      color: '#1A9AFF',
+    },
+    'ci-running': {
+      color: '#FEB32A',
+    },
+    'ci-passed': {
+      color: '#6DC335',
+    },
+    'ci-failed': {
+      color: '#F3524D',
+    },
+  };
+  return ciStatus[status] || '';
+};
 </script>
 
 <template>
@@ -25,6 +43,15 @@ defineProps({
       <div>{{ data.importer }}</div>
       <OIcon class="icon"><IconCalendar></IconCalendar></OIcon>
       <div>{{ data.applied_at }}</div>
+      <OIcon
+        class="icon m-left"
+        :style="{ color: getCiStatus(data.ci_status).color }"
+      >
+        <IconCi></IconCi>
+      </OIcon>
+      <div :style="{ color: getCiStatus(data.ci_status).color }">
+        {{ data.ci_status }}
+      </div>
     </div>
   </div>
 </template>
@@ -54,10 +81,16 @@ defineProps({
   color: var(--o-color-neutral5);
   display: grid;
   align-items: center;
-  grid-template-columns: max-content minmax(86px, max-content) max-content max-content;
+  grid-template-columns: max-content minmax(86px, max-content) repeat(
+      4,
+      max-content
+    );
   gap: 8px;
   .icon {
     font-size: var(--o-font-size-h8);
+  }
+  .m-left {
+    margin-left: var(--o-spacing-h5);
   }
 }
 </style>

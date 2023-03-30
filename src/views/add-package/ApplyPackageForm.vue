@@ -132,6 +132,7 @@ const selectSig = (e: string) => {
       >
         <el-input
           v-model="form.pkg_name"
+          :disabled="Boolean(props.data)"
           :placeholder="t('software.ENTER_NAME')"
         ></el-input>
       </el-form-item>

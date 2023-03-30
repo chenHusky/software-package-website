@@ -51,4 +51,5 @@ export default {
   SIGN_CLA_TIPS2: 'Sign CLA',
   TO_HOME: 'Back to Homepage',
   SIGN_CLA_TOO: 'Already Signed',
+  ONLY_TC_OPT: 'Only TC members can perform this operation.',
 };

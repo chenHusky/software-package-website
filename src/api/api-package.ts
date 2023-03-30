@@ -45,6 +45,22 @@ export function getSoftwareDetail(id: string) {
     .then((res: AxiosResponse) => res.data);
 }
 
+/**
+ * 修改软件包
+ */
+
+export function modifySoftware(id: string, params: any) {
+  const url = `/api-package/api/v1/softwarepkg/${id}`;
+  const { token } = getUserAuth();
+  return request
+    .put(url, params, {
+      headers: {
+        'PRIVATE-TOKEN': token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}
+
 // 放弃申请软件包
 export function abandonSoftware(id: string) {
   const url = `/api-package/api/v1/softwarepkg/${id}/review/abandon`;
