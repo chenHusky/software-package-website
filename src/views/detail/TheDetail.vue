@@ -15,13 +15,19 @@ import {
   rejectSoftware,
   rerunCI,
 } from '@/api/api-package';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useStoreData } from '@/shared/login';
+import { useLangStore } from '@/stores';
 
 const { t } = useI18n();
 const route = useRoute();
+const router = useRouter();
 const { guardAuthClient } = useStoreData();
 const isModify = ref(false);
+
+const lang = computed(() => {
+  return useLangStore().lang;
+});
 
 const submit = (form: any) => {
   const param = {
@@ -44,15 +50,22 @@ const initData = () => {
   getDetail();
 };
 const getDetail = () => {
-  getSoftwareDetail(route.params.id as string).then((res) => {
-    const { data } = res;
-    const _data = data || {};
-    if (_data?.application) {
-      _data.application.pkg_name = _data.pkg_name;
-      _data.application.repo_link = _data.repo_link;
-    }
-    detailData.value = _data;
-  });
+  getSoftwareDetail(route.params.id as string)
+    .then((res) => {
+      const { data } = res;
+      const _data = data || {};
+      if (_data?.application) {
+        _data.application.pkg_name = _data.pkg_name;
+        _data.application.repo_link = _data.repo_link;
+      }
+      detailData.value = _data;
+    })
+    .catch((err) => {
+      if (err?.response?.data?.code === 'software_pkg_not_found') {
+        const language = lang.value === 'zh' ? 'zh' : 'en';
+        router.push(`/${language}/package`);
+      }
+    });
 };
 watch(
   () => route.params.id,

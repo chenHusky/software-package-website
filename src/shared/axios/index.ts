@@ -188,7 +188,7 @@ const responseInterceptorId = request.interceptors.response.use(
         err.message = '连接服务器失败!';
       }
     }
-    return Promise.reject(err).catch(() => {});
+    return Promise.reject(err);
   }
 );
 // 移除全局的请求拦截器
