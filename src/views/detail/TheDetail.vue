@@ -85,6 +85,7 @@ const operateOption = computed(() => [
     label: t('software.APPROVE'),
     type: 'primary',
     tooltip: t('software.ONLY_TC_OPT'),
+    disable: detailData.value.phase === 'creating_repo',
     visible:
       detailData.value.importer &&
       detailData.value.importer !== guardAuthClient.value.username,
@@ -94,6 +95,7 @@ const operateOption = computed(() => [
     label: t('software.REJECT'),
     type: 'primary',
     tooltip: t('software.ONLY_TC_OPT'),
+    disable: detailData.value.phase === 'creating_repo',
     visible:
       detailData.value.importer &&
       detailData.value.importer !== guardAuthClient.value.username,
@@ -102,6 +104,7 @@ const operateOption = computed(() => [
     value: 'modify',
     label: t('software.MODIFY'),
     type: 'primary',
+    disable: detailData.value.phase === 'creating_repo',
     visible:
       detailData.value.importer &&
       detailData.value.importer === guardAuthClient.value.username,
@@ -110,6 +113,7 @@ const operateOption = computed(() => [
     value: 'restart',
     label: t('software.RESTART_CI'),
     type: 'primary',
+    disable: detailData.value.phase === 'creating_repo',
     visible:
       detailData.value.importer &&
       detailData.value.importer === guardAuthClient.value.username,
@@ -118,6 +122,7 @@ const operateOption = computed(() => [
     value: 'abandon',
     label: t('software.ABANDON'),
     type: '',
+    disable: detailData.value.phase === 'creating_repo',
     visible:
       detailData.value.importer &&
       detailData.value.importer === guardAuthClient.value.username,
@@ -176,7 +181,14 @@ const operate = (
       </div>
       <div class="content-padding reply">
         <div v-if="detailData.phase !== 'imported'" class="btns">
-          <OButton type="primary" size="small" @click="showTextarea = true">
+          <OButton
+            type="primary"
+            size="small"
+            :disabled="detailData.phase === 'creating_repo'"
+            @click="
+              detailData.phase !== 'creating_repo' && (showTextarea = true)
+            "
+          >
             {{ t('software.REPLY') }}
             <OIcon style="font-size: 20px"><IconComments></IconComments></OIcon>
           </OButton>
@@ -191,8 +203,9 @@ const operate = (
                 <OButton
                   v-if="item.visible"
                   :type="item.type"
+                  :disabled="item.disable"
                   size="small"
-                  @click="operate(item.value as any)"
+                  @click="!item.disable && operate(item.value as any)"
                 >
                   {{ item.label }}
                 </OButton>
