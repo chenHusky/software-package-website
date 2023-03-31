@@ -5,4 +5,5 @@ export default {
   software_pkg_cannot_comment: '状态为审批中才能评论',
   software_pkg_comment_not_found: '翻译失败',
   software_pkg_comment_illegal: '评论内容包含敏感词',
+  software_pkg_not_found: '软件包不存在',
 };

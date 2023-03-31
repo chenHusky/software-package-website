@@ -5,4 +5,5 @@ export default {
   software_pkg_cannot_comment: 'Comment only when the status is approval.',
   software_pkg_comment_not_found: 'Translation failure.',
   software_pkg_comment_illegal: 'The comments include sensitive words.',
+  software_pkg_not_found: 'Software package not found.',
 };
