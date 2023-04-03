@@ -27,7 +27,7 @@ export default {
   ENTER_LICENSE: '请填写SRPM URL',
   ENTER_SIG: '请选择SIG',
   SELECT: '选择',
-  PLATFORM: '平台',
+  PLATFORM: '软件代码仓平台',
   SUBMIT: '提交',
   CANCEL: '取消',
   REPLY: '回复',
