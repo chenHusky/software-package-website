@@ -28,7 +28,7 @@ export default {
   ENTER_LICENSE: 'Enter a SRPM URL',
   ENTER_SIG: 'Select a SIG',
   SELECT: 'Select',
-  PLATFORM: 'Platform',
+  PLATFORM: 'Repo Hosting Platform',
   SUBMIT: 'Submit',
   CANCEL: 'Cancel',
   REPLY: 'Reply',
