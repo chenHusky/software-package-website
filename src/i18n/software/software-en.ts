@@ -28,7 +28,7 @@ export default {
   ENTER_LICENSE: 'Enter a SRPM URL',
   ENTER_SIG: 'Select a SIG',
   SELECT: 'Select',
-  PLATFORM: 'Repo Hosting Platform',
+  PLATFORM: 'Code Hosting Platform',
   SUBMIT: 'Submit',
   CANCEL: 'Cancel',
   REPLY: 'Reply',
@@ -52,4 +52,8 @@ export default {
   TO_HOME: 'Back to Homepage',
   SIGN_CLA_TOO: 'Already Signed',
   ONLY_TC_OPT: 'Only TC members can perform this operation.',
+  NAME_TIPS:
+    'The software package name must be the value of Name in the spec file.',
+  PLATFORM_TIPS:
+    'The spec and source RPM files will be stored on the specified platform.',
 };
