@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import SelectSigModal from './SelectSigModal.vue';
+import IconTips from '~icons/app/icon-tips.svg';
 import { onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { FormInstance, FormItemRule } from 'element-plus';
@@ -123,13 +124,22 @@ const selectSig = (e: string) => {
       :inline="true"
       :model="form"
     >
-      <el-form-item
-        class="fill-row"
-        :rules="rules"
-        :label="t('software.NAME')"
-        prop="pkg_name"
-        required
-      >
+      <el-form-item class="fill-row" :rules="rules" prop="pkg_name" required>
+        <template #label>
+          <div class="platform-label">
+            <span>{{ t('software.NAME') }}</span>
+            <el-tooltip placement="top" effect="light">
+              <template #content>
+                <span style="font-size: 14px">
+                  {{ t('software.NAME_TIPS') }}
+                </span>
+              </template>
+              <OIcon style="font-size: 18px">
+                <IconTips></IconTips>
+              </OIcon>
+            </el-tooltip>
+          </div>
+        </template>
         <el-input
           v-model="form.pkg_name"
           :disabled="Boolean(props.data)"
@@ -206,12 +216,22 @@ const selectSig = (e: string) => {
           }}</OButton>
         </div>
       </el-form-item>
-      <el-form-item
-        :rules="rules"
-        :label="t('software.PLATFORM')"
-        prop="platform"
-        required
-      >
+      <el-form-item :rules="rules" prop="platform" required>
+        <template #label>
+          <div class="platform-label">
+            <span>{{ t('software.PLATFORM') }}</span>
+            <el-tooltip placement="top" effect="light">
+              <template #content>
+                <span style="font-size: 14px">
+                  {{ t('software.PLATFORM_TIPS') }}
+                </span>
+              </template>
+              <OIcon style="font-size: 18px">
+                <IconTips></IconTips>
+              </OIcon>
+            </el-tooltip>
+          </div>
+        </template>
         <OSelect v-model="form.platform" style="width: 100%">
           <ElOption
             v-for="item in typesList"
@@ -260,5 +280,10 @@ footer {
     display: flex;
     justify-content: center;
   }
+}
+.platform-label {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
 }
 </style>

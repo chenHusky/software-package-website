@@ -27,7 +27,7 @@ export default {
   ENTER_LICENSE: '请填写SRPM URL',
   ENTER_SIG: '请选择SIG',
   SELECT: '选择',
-  PLATFORM: '软件代码仓平台',
+  PLATFORM: '软件包代码托管平台',
   SUBMIT: '提交',
   CANCEL: '取消',
   REPLY: '回复',
@@ -50,4 +50,6 @@ export default {
   TO_HOME: '返回首页',
   SIGN_CLA_TOO: '我已签署CLA',
   ONLY_TC_OPT: '只有TC成员可以执行此操作',
+  NAME_TIPS: '软件包的名称必须与Spec文件中Name字段的值保持保持一致',
+  PLATFORM_TIPS: '软件包的Spec和SRPM文件将存储在此代码托管平台',
 };
