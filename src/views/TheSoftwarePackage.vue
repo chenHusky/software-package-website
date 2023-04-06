@@ -37,7 +37,7 @@ const formRadioOption = computed((): FormRadioConfig[] => [
 
 const formRadioValue = ref({
   importer: 'all',
-  phase: 'reviewing',
+  phase: 'imported',
 });
 </script>
 <template>
