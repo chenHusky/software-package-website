@@ -25,9 +25,6 @@ const tableConfig = ref<ProTableColConfig[]>([
   {
     key: 'pkg_name',
     label: t('software.NAME'),
-    filtersConfig: {
-      search: true,
-    },
     type: 'link',
     click: (data: any) => {
       const language = lang.value === 'zh' ? 'zh' : 'en';
@@ -82,6 +79,7 @@ const tableConfig = ref<ProTableColConfig[]>([
 const childRef = shallowRef<any>(null);
 const total = ref(0);
 const listData = ref<any>([]);
+const searchName = ref('');
 
 const initData = (filter?: any) => {
   const _filter = filter || childRef.value?.filterParam || {};
@@ -91,6 +89,9 @@ const initData = (filter?: any) => {
     phase: 'imported',
   };
   const obj: any = {};
+  if (searchName.value) {
+    obj['pkg_name'] = searchName.value;
+  }
   if (props.importer === 'mine') {
     obj['importer'] = guardAuthClient.value.username;
   }
@@ -123,6 +124,11 @@ watch(
 </script>
 <template>
   <div>
+    <OSearch
+      v-model="searchName"
+      style="margin-bottom: 12px"
+      @change="initData()"
+    ></OSearch>
     <ProTable
       id="importedList"
       ref="childRef"
