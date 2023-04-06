@@ -65,6 +65,9 @@ const attrs = useAttrs();
         color: var(--o-search-font-color);
       }
     }
+    .is-focus {
+      box-shadow: 0 0 0 1px var(--o-color-border3) inset;
+    }
   }
 }
 .el-scrollbar__view {
