@@ -303,6 +303,11 @@ const sizeChange = () => {
                   {{ scope.row[item.key] }}
                 </a>
               </template>
+              <template v-else #default="scope">
+                <span style="word-break: break-word">
+                  {{ scope.row[item.key] }}
+                </span>
+              </template>
             </ElTableColumn>
           </template>
           <template
