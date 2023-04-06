@@ -126,7 +126,8 @@ watch(
   <div>
     <OSearch
       v-model="searchName"
-      style="margin-bottom: 12px"
+      :placeholder="t('software.ENTER_NAME')"
+      class="name-search"
       @change="initData()"
     ></OSearch>
     <ProTable
@@ -142,4 +143,12 @@ watch(
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.name-search {
+  width: 300px;
+  margin-bottom: 12px;
+  :deep(.el-input__wrapper) {
+    border-radius: 18px;
+  }
+}
+</style>
