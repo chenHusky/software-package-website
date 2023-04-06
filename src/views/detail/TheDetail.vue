@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n';
 import DetailContent from './DetailContent.vue';
 import DetailComment from './DetailComment.vue';
 import CommentsModal from './CommentsModal.vue';
+import FlowChart from './FlowChart.vue';
 import ApplyPackageForm from '../add-package/ApplyPackageForm.vue';
 import IconComments from '~icons/app/icon-comments.svg';
 import {
@@ -182,6 +183,7 @@ const operate = (
             <h1 class="title">{{ detailData.pkg_name }}</h1>
           </template>
         </SwListItemContent>
+        <FlowChart :data="detailData.phase"></FlowChart>
       </div>
       <div class="content-padding">
         <DetailContent v-if="!isModify" :data="detailData"></DetailContent>
@@ -247,6 +249,8 @@ const operate = (
   margin-bottom: var(--o-spacing-h4);
   padding-bottom: var(--o-spacing-h4);
   border-bottom: 1px solid var(--o-color-division1);
+  display: flex;
+  justify-content: space-between;
   .title {
     line-height: var(--o-line_height-display3);
   }
