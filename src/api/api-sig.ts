@@ -7,7 +7,7 @@ import { getUserAuth } from '@/shared/login';
  * @returns {Promise<GroupInfo[]>}
  */
 export function getSigLandscape(lang: string): Promise<GroupInfo[]> {
-  const url = '/api-package/api/v1/sig';
+  const url = '/api/v1/sig';
   const { token } = getUserAuth();
   return request
     .get(url, {

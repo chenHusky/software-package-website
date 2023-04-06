@@ -7,7 +7,7 @@ import { getUserAuth } from '@/shared/login';
  */
 
 export function addSoftware(params: any) {
-  const url = '/api-package/api/v1/softwarepkg';
+  const url = '/api/v1/softwarepkg';
   const { token } = getUserAuth();
   return request
     .post(url, params, {
@@ -20,7 +20,7 @@ export function addSoftware(params: any) {
 
 // 软件包列表
 export function querySoftwareList(params: any) {
-  const url = '/api-package/api/v1/softwarepkg';
+  const url = '/api/v1/softwarepkg';
   const { token } = getUserAuth();
   return request
     .get(url, {
@@ -34,7 +34,7 @@ export function querySoftwareList(params: any) {
 
 // 软件包详情
 export function getSoftwareDetail(id: string) {
-  const url = `/api-package/api/v1/softwarepkg/${id}`;
+  const url = `/api/v1/softwarepkg/${id}`;
   const { token } = getUserAuth();
   return request
     .get(url, {
@@ -50,7 +50,7 @@ export function getSoftwareDetail(id: string) {
  */
 
 export function modifySoftware(id: string, params: any) {
-  const url = `/api-package/api/v1/softwarepkg/${id}`;
+  const url = `/api/v1/softwarepkg/${id}`;
   const { token } = getUserAuth();
   return request
     .put(url, params, {
@@ -63,7 +63,7 @@ export function modifySoftware(id: string, params: any) {
 
 // 重启ci
 export function rerunCI(id: string) {
-  const url = `/api-package/api/v1/softwarepkg/${id}/review/rerunci`;
+  const url = `/api/v1/softwarepkg/${id}/review/rerunci`;
   const { token } = getUserAuth();
   return request
     .put(url, undefined, {
@@ -75,7 +75,7 @@ export function rerunCI(id: string) {
 }
 // 放弃申请软件包
 export function abandonSoftware(id: string) {
-  const url = `/api-package/api/v1/softwarepkg/${id}/review/abandon`;
+  const url = `/api/v1/softwarepkg/${id}/review/abandon`;
   const { token } = getUserAuth();
   return request
     .put(url, undefined, {
@@ -88,7 +88,7 @@ export function abandonSoftware(id: string) {
 
 // 同意申请软件包
 export function approveSoftware(id: string) {
-  const url = `/api-package/api/v1/softwarepkg/${id}/review/approve`;
+  const url = `/api/v1/softwarepkg/${id}/review/approve`;
   const { token } = getUserAuth();
   return request
     .put(url, undefined, {
@@ -101,7 +101,7 @@ export function approveSoftware(id: string) {
 
 // 不同意申请软件包
 export function rejectSoftware(id: string) {
-  const url = `/api-package/api/v1/softwarepkg/${id}/review/reject`;
+  const url = `/api/v1/softwarepkg/${id}/review/reject`;
   const { token } = getUserAuth();
   return request
     .put(url, undefined, {
@@ -114,7 +114,7 @@ export function rejectSoftware(id: string) {
 
 // 评论申请软件包
 export function commentSoftware(id: string, params: any) {
-  const url = `/api-package/api/v1/softwarepkg/${id}/review/comment`;
+  const url = `/api/v1/softwarepkg/${id}/review/comment`;
   const { token } = getUserAuth();
   return request
     .post(url, params, {
@@ -127,7 +127,7 @@ export function commentSoftware(id: string, params: any) {
 
 // 翻译评论
 export function translateComment(ids: any, params: any) {
-  const url = `/api-package/api/v1/softwarepkg/${ids.id}/review/comment/${ids.cid}/translate`;
+  const url = `/api/v1/softwarepkg/${ids.id}/review/comment/${ids.cid}/translate`;
   const { token } = getUserAuth();
   return request
     .post(url, params, {
@@ -140,7 +140,7 @@ export function translateComment(ids: any, params: any) {
 
 // 是否填写cla
 export function getVerifyCla() {
-  const url = `/api-package/api/v1/cla`;
+  const url = `/api/v1/cla`;
   const { token } = getUserAuth();
   return request
     .get(url, {

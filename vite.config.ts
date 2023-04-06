@@ -70,10 +70,9 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api-omapi/, ''),
       },
-      '/api-package/': {
-        target: 'https://software.test.osinfra.cn/',
+      '/api/': {
+        target: 'https://software-pkg.test.osinfra.cn/',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api-package/, ''),
       },
     },
   },
