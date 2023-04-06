@@ -235,123 +235,119 @@ const sizeChange = () => {
       :data="currentData"
       row-key="id"
     >
-      <transition-group name="table">
-        <template v-for="item in tableConfig" :key="item.key">
-          <template
-            v-if="
-              !item?.children?.length && checkedColumnList.includes(item.key)
-            "
-          >
-            <ElTableColumn :prop="item.key" :label="item.label">
-              <template #header>
-                <div class="header-filter">
-                  <span :class="isActive(item.key)">
-                    {{ item.label }}
-                  </span>
-                  <el-popover
-                    v-if="item?.filtersConfig?.search"
-                    v-model:visible="filterConfig[item.key].visible"
-                    width="286"
-                    trigger="click"
-                  >
-                    <template #reference>
-                      <OIcon class="header-icon" :class="isActive(item.key)">
-                        <IconSearch></IconSearch>
-                      </OIcon>
-                    </template>
-                    <div>
-                      <OSearch
-                        v-model="filterConfig[item.key].searchValue"
-                        @change="search(item.key)"
-                      ></OSearch>
-                    </div>
-                  </el-popover>
-                  <ElDropdown
-                    v-if="item?.filtersConfig?.select"
-                    :max-height="250"
-                    trigger="click"
-                    @command="select($event, item.key)"
-                    @visible-change="(val:boolean) => filterConfig[item.key].visible = val"
-                  >
-                    <OIcon class="header-icon" :class="isActive(item.key)">
-                      <IconFilter></IconFilter>
-                    </OIcon>
-                    <template #dropdown>
-                      <div class="search-box">
-                        <ElDropdownItem v-if="true" :command="''">
-                          取消选项
-                        </ElDropdownItem>
-                      </div>
-                      <ElDropdownItem
-                        v-for="it in item?.filtersConfig?.select?.options"
-                        :key="it.value"
-                        :class="
-                          it.value === filterConfig[item.key].selectValue
-                            ? 'is-active'
-                            : ''
-                        "
-                        :command="it.value"
-                      >
-                        {{ it.label }}
-                      </ElDropdownItem>
-                    </template>
-                  </ElDropdown>
-                </div>
-              </template>
-              <template v-if="item.type === 'link'" #default="scope">
-                <a @click="item.click && item.click(scope.row)">
-                  {{ scope.row[item.key] }}
-                </a>
-              </template>
-            </ElTableColumn>
-          </template>
-          <template
-            v-else-if="
-              item?.children?.length &&
-              item.children.some((it) => checkedColumnList.includes(it.key))
-            "
-          >
-            <ElTableColumn :label="item.label">
-              <template v-for="it in item.children" :key="it.key">
-                <ElTableColumn
-                  v-if="checkedColumnList.includes(it.key)"
-                  :prop="it.key"
-                  :label="it.label"
-                ></ElTableColumn>
-              </template>
-            </ElTableColumn>
-          </template>
-        </template>
-        <ElTableColumn
-          v-if="columnList.length > 1"
-          key="setting"
-          width="50"
-          fixed="right"
-          class-name="setting-title"
+      <template v-for="item in tableConfig" :key="item.key">
+        <template
+          v-if="!item?.children?.length && checkedColumnList.includes(item.key)"
         >
-          <template #header>
-            <el-popover width="286" trigger="click">
-              <template #reference>
-                <OIcon>
-                  <IconSetting></IconSetting>
-                </OIcon>
-              </template>
-              <div class="filter-title">
-                <OTag
-                  v-for="item in columnList"
-                  :key="item"
-                  checkable
-                  checked
-                  :type="checkedColumnList.includes(item) ? 'primary' : 'text'"
-                  @click="setCheckedColumnList(item)"
+          <ElTableColumn :prop="item.key" :label="item.label">
+            <template #header>
+              <div class="header-filter">
+                <span :class="isActive(item.key)">
+                  {{ item.label }}
+                </span>
+                <el-popover
+                  v-if="item?.filtersConfig?.search"
+                  v-model:visible="filterConfig[item.key].visible"
+                  width="286"
+                  trigger="click"
                 >
-                  {{ getColumnLabel[item] }}
-                </OTag>
+                  <template #reference>
+                    <OIcon class="header-icon" :class="isActive(item.key)">
+                      <IconSearch></IconSearch>
+                    </OIcon>
+                  </template>
+                  <div>
+                    <OSearch
+                      v-model="filterConfig[item.key].searchValue"
+                      @change="search(item.key)"
+                    ></OSearch>
+                  </div>
+                </el-popover>
+                <ElDropdown
+                  v-if="item?.filtersConfig?.select"
+                  :max-height="250"
+                  trigger="click"
+                  @command="select($event, item.key)"
+                  @visible-change="(val:boolean) => filterConfig[item.key].visible = val"
+                >
+                  <OIcon class="header-icon" :class="isActive(item.key)">
+                    <IconFilter></IconFilter>
+                  </OIcon>
+                  <template #dropdown>
+                    <div class="search-box">
+                      <ElDropdownItem v-if="true" :command="''">
+                        取消选项
+                      </ElDropdownItem>
+                    </div>
+                    <ElDropdownItem
+                      v-for="it in item?.filtersConfig?.select?.options"
+                      :key="it.value"
+                      :class="
+                        it.value === filterConfig[item.key].selectValue
+                          ? 'is-active'
+                          : ''
+                      "
+                      :command="it.value"
+                    >
+                      {{ it.label }}
+                    </ElDropdownItem>
+                  </template>
+                </ElDropdown>
               </div>
-            </el-popover>
-          </template>
-        </ElTableColumn>
-      </transition-group>
+            </template>
+            <template v-if="item.type === 'link'" #default="scope">
+              <a @click="item.click && item.click(scope.row)">
+                {{ scope.row[item.key] }}
+              </a>
+            </template>
+          </ElTableColumn>
+        </template>
+        <template
+          v-else-if="
+            item?.children?.length &&
+            item.children.some((it) => checkedColumnList.includes(it.key))
+          "
+        >
+          <ElTableColumn :label="item.label">
+            <template v-for="it in item.children" :key="it.key">
+              <ElTableColumn
+                v-if="checkedColumnList.includes(it.key)"
+                :prop="it.key"
+                :label="it.label"
+              ></ElTableColumn>
+            </template>
+          </ElTableColumn>
+        </template>
+      </template>
+      <ElTableColumn
+        v-if="columnList.length > 1"
+        key="setting"
+        width="50"
+        fixed="right"
+        class-name="setting-title"
+      >
+        <template #header>
+          <el-popover width="286" trigger="click">
+            <template #reference>
+              <OIcon>
+                <IconSetting></IconSetting>
+              </OIcon>
+            </template>
+            <div class="filter-title">
+              <OTag
+                v-for="item in columnList"
+                :key="item"
+                checkable
+                checked
+                :type="checkedColumnList.includes(item) ? 'primary' : 'text'"
+                @click="setCheckedColumnList(item)"
+              >
+                {{ getColumnLabel[item] }}
+              </OTag>
+            </div>
+          </el-popover>
+        </template>
+      </ElTableColumn>
     </ElTable>
     <OPagination
       v-model:current-page="currentPage"
