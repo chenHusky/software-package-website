@@ -25,6 +25,9 @@ const tableConfig = ref<ProTableColConfig[]>([
   {
     key: 'pkg_name',
     label: t('software.NAME'),
+    filtersConfig: {
+      search: true,
+    },
     type: 'link',
     click: (data: any) => {
       const language = lang.value === 'zh' ? 'zh' : 'en';
@@ -98,12 +101,17 @@ const initData = (filter?: any) => {
     });
   }
   Object.assign(param, obj);
-  querySoftwareList(param).then((res) => {
-    const { data } = res;
-    const { pkgs = [], total: _total = 0 } = data || {};
-    total.value = _total;
-    listData.value = pkgs || [];
-  });
+  querySoftwareList(param)
+    .then((res) => {
+      const { data } = res;
+      const { pkgs = [], total: _total = 0 } = data || {};
+      total.value = _total;
+      listData.value = pkgs || [];
+    })
+    .catch(() => {
+      total.value = 0;
+      listData.value = [];
+    });
 };
 watch(
   () => props.importer,

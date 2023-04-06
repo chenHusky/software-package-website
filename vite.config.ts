@@ -39,13 +39,13 @@ export default defineConfig({
       useSource: true,
     }),
   ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/shared/styles/o-theme/index.scss" as *;`,
-      },
-    },
-  },
+  // css: {
+  //   preprocessorOptions: {
+  //     scss: {
+  //       additionalData: `@use "@/shared/styles/o-theme/index.scss" as *;`,
+  //     },
+  //   },
+  // },
 
   build: {
     chunkSizeWarningLimit: 1500,
@@ -71,7 +71,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api-omapi/, ''),
       },
       '/api/': {
-        target: 'https://software-pkg.test.osinfra.cn/',
+        target: 'https://software-pkg.openeuler.org/',
         changeOrigin: true,
       },
     },
