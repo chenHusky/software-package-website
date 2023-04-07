@@ -396,20 +396,6 @@ export default {
         },
       ],
     },
-    {
-      CATEGORY_NAME: '其他',
-      SUB_LIST: [
-        {
-          SUB_CATEGORY_NAME: '其他',
-          COLOR: '#8e583d',
-          LIST: [
-            {
-              NAME: 'other',
-            },
-          ],
-        },
-      ],
-    },
   ],
   SIG_DETAIL: {
     VIDEO: '视频',

@@ -39,12 +39,6 @@ const titleList = ref([
     }),
     key: 'operate',
   },
-  {
-    value: computed(() => {
-      return t('sig.SIG_LANDSCAPE[2].CATEGORY_NAME');
-    }),
-    key: 'other',
-  },
 ]);
 const tabType = ref(titleList.value[0].key);
 const landscapeInfo = ref<GroupInfo[]>([]);
@@ -55,16 +49,7 @@ watch(
   () => lang.value,
   async (val) => {
     const arr = await getSigLandscape(val);
-    const others = {
-      groupName: t('sig.SIG_LANDSCAPE[2].CATEGORY_NAME'),
-      features: [
-        {
-          featureName: t('sig.SIG_LANDSCAPE[2].CATEGORY_NAME'),
-          sigs: ['other'],
-        },
-      ],
-    };
-    landscapeInfo.value = arr.concat(others);
+    landscapeInfo.value = arr;
   },
   {
     immediate: true,

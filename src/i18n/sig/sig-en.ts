@@ -408,20 +408,6 @@ export default {
         },
       ],
     },
-    {
-      CATEGORY_NAME: 'Others',
-      SUB_LIST: [
-        {
-          SUB_CATEGORY_NAME: 'Others',
-          COLOR: '#8e583d',
-          LIST: [
-            {
-              NAME: 'other',
-            },
-          ],
-        },
-      ],
-    },
   ],
   SIG_DETAIL: {
     VIDEO: 'Video',
