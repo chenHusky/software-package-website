@@ -48,7 +48,7 @@ const translate = () => {
       class="translate-text"
     >
     </v-md-preview>
-    <div v-if="guardAuthClient.username" class="operate">
+    <div v-if="guardAuthClient.username || !translateData" class="operate">
       <OIcon class="translate-btn" @click="translate">
         <IconTranslate></IconTranslate>
       </OIcon>

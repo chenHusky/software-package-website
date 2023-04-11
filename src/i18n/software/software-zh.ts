@@ -52,4 +52,5 @@ export default {
   ONLY_TC_OPT: '只有TC成员可以执行此操作',
   NAME_TIPS: '软件包的名称必须与Spec文件中Name字段的值保持保持一致',
   PLATFORM_TIPS: '软件包的Spec和SRPM文件将存储在此代码托管平台',
+  CONFIRM_TIP: '确认执行该操作',
 };

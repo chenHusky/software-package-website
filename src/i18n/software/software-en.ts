@@ -56,4 +56,5 @@ export default {
     'The software package name must be the value of Name in the spec file.',
   PLATFORM_TIPS:
     'The spec and source RPM files will be stored on the specified platform.',
+  CONFIRM_TIP: 'Confirm to perform this operation',
 };
