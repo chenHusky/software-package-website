@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n';
 import DetailContent from './DetailContent.vue';
 import DetailComment from './DetailComment.vue';
 import CommentsModal from './CommentsModal.vue';
+import ConfirmModal from './ConfirmModal.vue';
 import FlowChart from './FlowChart.vue';
 import ApplyPackageForm from '../add-package/ApplyPackageForm.vue';
 import IconComments from '~icons/app/icon-comments.svg';
@@ -166,12 +167,17 @@ const operate = (
       });
     },
     abandon: () => {
-      abandonSoftware(id).then(() => {
-        initData();
-      });
+      showConfirm.value = true;
     },
   };
   eventObj[key] && eventObj[key]();
+};
+const showConfirm = ref(false);
+const submitConfirm = () => {
+  const id = route.params.id as string;
+  abandonSoftware(id).then(() => {
+    initData();
+  });
 };
 </script>
 <template>
@@ -196,17 +202,10 @@ const operate = (
       </div>
       <div class="content-padding reply">
         <div
-          v-if="!['closed', 'imported'].includes(detailData.phase)"
+          v-if="['reviewing'].includes(detailData.phase) && !isModify"
           class="btns"
         >
-          <OButton
-            type="primary"
-            size="small"
-            :disabled="detailData.phase === 'creating_repo'"
-            @click="
-              detailData.phase !== 'creating_repo' && (showTextarea = true)
-            "
-          >
+          <OButton type="primary" size="small" @click="showTextarea = true">
             {{ t('software.REPLY') }}
             <OIcon style="font-size: 20px"><IconComments></IconComments></OIcon>
           </OButton>
@@ -235,6 +234,10 @@ const operate = (
           v-model="showTextarea"
           @submit="submitComment"
         ></CommentsModal>
+        <ConfirmModal
+          v-model="showConfirm"
+          @submit="submitConfirm"
+        ></ConfirmModal>
       </div>
       <div v-if="detailData?.comments?.length">
         <DetailComment

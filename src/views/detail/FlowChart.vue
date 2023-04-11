@@ -9,35 +9,64 @@ const props = defineProps({
 });
 const { t } = useI18n();
 const status: any = {
-  reviewing: [],
-  creating_repo: ['reviewing'],
-  imported: ['reviewing', 'creating_repo', 'imported'],
-  closed: ['reviewing', 'closed'],
+  reviewing: {
+    completeArr: [],
+    color: '#FEAA11',
+  },
+  creating_repo: {
+    completeArr: ['reviewing'],
+    color: '#002FA7',
+  },
+  imported: {
+    completeArr: ['reviewing', 'creating_repo'],
+    color: '#002FA7',
+  },
+  closed: {
+    completeArr: ['reviewing', 'closed'],
+    color: '#B2B2B2',
+  },
 };
-const sucessStaus = computed(() => status[props.data] || status.reviewing);
+const sucessStaus = computed(
+  () => status[props.data]?.completeArr || status.reviewing.completeArr
+);
 const getSvgColor = (type: string) => {
   if (sucessStaus.value.includes(type)) {
     return '#6dc335';
   } else if (props.data === type) {
-    return '#feb32a';
+    const color = status[type]?.color;
+    return color;
   }
   return '#cccccc';
 };
 const getBoxColor = (type: string) => {
   if (sucessStaus.value.includes(type)) {
-    return 'success-box';
+    return {
+      border: '1px solid #6dc335',
+      color: '#fff',
+      'background-color': '#6dc335',
+    };
   } else if (props.data === type) {
-    return 'waiting-box';
+    const color = status[type]?.color;
+    return {
+      border: `1px solid ${color}`,
+      color: '#fff',
+      'background-color': color,
+    };
   }
-  return '';
+  return {};
 };
 const getLineColor = (type: string) => {
   if (sucessStaus.value.includes(type)) {
-    return 'success-line';
+    return {
+      'border-color': '#6dc335',
+    };
   } else if (props.data === type) {
-    return 'waiting-line';
+    const color = status[type]?.color;
+    return {
+      'border-color': color,
+    };
   }
-  return '';
+  return {};
 };
 </script>
 <template>
@@ -47,36 +76,36 @@ const getLineColor = (type: string) => {
     <svg width="10" height="10" version="1.1" view-box="0 0 10 10">
       <path d="M0,0 L0,10 L10,5 Z" style="fill: #6dc335" />
     </svg>
-    <div class="box" :class="getBoxColor('reviewing')">
+    <div class="box" :style="getBoxColor('reviewing')">
       {{ t('software.APPROVAL') }}
     </div>
-    <div class="line" :class="getLineColor('reviewing')"></div>
+    <div class="line" :style="getLineColor('reviewing')"></div>
     <svg width="10" height="10" version="1.1" view-box="0 0 10 10">
       <path
         d="M0,0 L0,10 L10,5 Z"
         :style="{ fill: getSvgColor('reviewing') }"
       />
     </svg>
-    <div class="box" :class="getBoxColor('creating_repo')">
+    <div class="box" :style="getBoxColor('creating_repo')">
       {{ t('software.CREATEING_SOFTWARE') }}
     </div>
-    <div class="line" :class="getLineColor('creating_repo')"></div>
+    <div class="line" :style="getLineColor('creating_repo')"></div>
     <svg width="10" height="10" version="1.1" view-box="0 0 10 10">
       <path
         d="M0,0 L0,10 L10,5 Z"
         :style="{ fill: getSvgColor('creating_repo') }"
       />
     </svg>
-    <div class="box" :class="getBoxColor('imported')">
+    <div class="box" :style="getBoxColor('imported')">
       {{ t('software.INTRODUCED') }}
     </div>
-    <div class="p-line" :class="getLineColor('closed')"></div>
-    <div class="v-line" :class="getLineColor('closed')"></div>
-    <div class="line closed-line" :class="getLineColor('closed')"></div>
+    <div class="p-line" :style="getLineColor('closed')"></div>
+    <div class="v-line" :style="getLineColor('closed')"></div>
+    <div class="line closed-line" :style="getLineColor('closed')"></div>
     <svg width="10" height="10" version="1.1" view-box="0 0 10 10">
       <path d="M0,0 L0,10 L10,5 Z" :style="{ fill: getSvgColor('closed') }" />
     </svg>
-    <div class="box closed" :class="getBoxColor('closed')">
+    <div class="box closed" :style="getBoxColor('closed')">
       {{ t('software.ENDED') }}
     </div>
   </div>
