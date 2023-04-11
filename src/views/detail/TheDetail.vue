@@ -195,7 +195,10 @@ const operate = (
         ></ApplyPackageForm>
       </div>
       <div class="content-padding reply">
-        <div v-if="detailData.phase !== 'imported'" class="btns">
+        <div
+          v-if="!['closed', 'imported'].includes(detailData.phase)"
+          class="btns"
+        >
           <OButton
             type="primary"
             size="small"
