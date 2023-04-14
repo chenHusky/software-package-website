@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia';
 
 const LOGIN_KEYS = {
   USER_TOKEN: '_U_T_',
+  USER_INFO: '_U_I_',
 };
 
 function setCookie(cname: string, cvalue: string, isDelete?: boolean) {
@@ -93,17 +94,50 @@ export function useStoreData() {
   return stores;
 }
 
+const setSessionInfo = (data: any) => {
+  const { username, photo } = data || {};
+  if (username && photo) {
+    sessionStorage.setItem(
+      LOGIN_KEYS.USER_INFO,
+      JSON.stringify({ username, photo })
+    );
+  }
+};
+const getSessionInfo = () => {
+  let username = '';
+  let photo = '';
+  try {
+    const info = sessionStorage.getItem(LOGIN_KEYS.USER_INFO);
+    if (info) {
+      const obj = JSON.parse(info) || {};
+      username = obj.username || '';
+      photo = obj.photo || '';
+    }
+  } catch (error) {}
+  return {
+    username,
+    photo,
+  };
+};
+const removeSessionInfo = () => {
+  sessionStorage.removeItem(LOGIN_KEYS.USER_INFO);
+};
+
 // 刷新后重新请求登录用户信息
 export function refreshInfo(community = 'openeuler') {
   const { token } = getUserAuth();
   if (token) {
     const { guardAuthClient } = useStoreData();
+    guardAuthClient.value = getSessionInfo();
     queryPermission({ community }).then((res) => {
       const { data } = res;
       if (Object.prototype.toString.call(data) === '[object Object]') {
         guardAuthClient.value = data;
+        setSessionInfo(data);
       }
     });
+  } else {
+    removeSessionInfo();
   }
 }
 
