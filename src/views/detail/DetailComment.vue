@@ -41,10 +41,10 @@ const translate = () => {
         <div class="time">{{ getLastTime(data.since_creation) }}</div>
       </div>
     </div>
-    <v-md-preview :text="data.content"></v-md-preview>
+    <v-md-preview :text="'&emsp;' + data.content"></v-md-preview>
     <v-md-preview
       v-if="translateData"
-      :text="translateData"
+      :text="'&emsp;' + translateData"
       class="translate-text"
     >
     </v-md-preview>

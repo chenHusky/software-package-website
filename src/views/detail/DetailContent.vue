@@ -25,10 +25,12 @@ const contentData = computed(() => [
   {
     key: 'spec_url',
     label: t('software.SOURCE_CODE'),
+    bold: true,
   },
   {
     key: 'src_rpm_url',
     label: t('software.SOURCE_CODE_LICENSE'),
+    bold: true,
   },
   {
     key: 'sig',
