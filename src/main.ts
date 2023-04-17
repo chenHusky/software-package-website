@@ -16,6 +16,8 @@ import VMdPreview from '@kangc/v-md-editor/lib/preview';
 import '@kangc/v-md-editor/lib/style/preview.css';
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
 import '@kangc/v-md-editor/lib/theme/style/github.css';
+import createEmojiPlugin from '@kangc/v-md-editor/lib/plugins/emoji/index';
+import '@kangc/v-md-editor/lib/plugins/emoji/emoji.css';
 
 import App from './App.vue';
 import OpenDesign from 'opendesign';
@@ -24,7 +26,10 @@ VueMarkdownEditor.use(vuepressTheme, {
   Prism,
 });
 
-VMdPreview.use(githubTheme);
+VMdPreview.use(githubTheme, {
+  Prism,
+});
+VMdPreview.use(createEmojiPlugin());
 
 const app = createApp(App);
 
