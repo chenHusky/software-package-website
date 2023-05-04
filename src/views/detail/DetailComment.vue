@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { translateComment } from '@/api/api-package';
 import { useStoreData } from '@/shared/login';
-import { getLastTime } from '@/shared/utils';
 import { useLangStore } from '@/stores';
 import { computed, ref, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
@@ -38,7 +37,7 @@ const translate = () => {
       <ProfilePhoto :name="data.author"></ProfilePhoto>
       <div>
         <div class="name">{{ data.author }}</div>
-        <div class="time">{{ getLastTime(data.since_creation) }}</div>
+        <div class="time">{{ data.created_at }}</div>
       </div>
     </div>
     <v-md-preview :text="'&emsp;' + data.content"></v-md-preview>
