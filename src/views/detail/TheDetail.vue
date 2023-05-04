@@ -103,7 +103,8 @@ const operateOption = computed(() => [
     disable: detailData.value.phase === 'creating_repo',
     visible:
       detailData.value.importer &&
-      detailData.value.importer !== guardAuthClient.value.username,
+      detailData.value.importer !== guardAuthClient.value.username &&
+      detailData.value.ci_status !== 'ci-failed',
   },
   {
     value: 'reject',
