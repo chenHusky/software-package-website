@@ -83,16 +83,20 @@ const getContentValue = (key: string) => {
             <span style="margin-right: 8px">{{ t('software.REJECT') }}:</span>
             <ProfilePhoto
               v-for="item in data?.rejected_by"
-              :key="item"
-              :name="item"
+              :key="item?.account"
+              :name="item?.account"
+              :is-t-c="item?.is_tc"
+              :sig="data?.sig"
             ></ProfilePhoto>
           </div>
           <div v-else-if="data?.approved_by?.length" class="person">
             <span style="margin-right: 8px">{{ t('software.APPROVE') }}:</span>
             <ProfilePhoto
               v-for="item in data?.approved_by"
-              :key="item"
-              :name="item"
+              :key="item?.account"
+              :name="item?.account"
+              :is-t-c="item?.is_tc"
+              :sig="data?.sig"
             ></ProfilePhoto>
           </div>
         </template>
