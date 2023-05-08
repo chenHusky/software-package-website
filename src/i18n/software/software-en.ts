@@ -20,8 +20,7 @@ export default {
   DESC: 'Description',
   ENTER_DESC: 'Enter a description.',
   REASON: 'Purpose',
-  ENTER_REASON:
-    'Enter the purpose.For example, I want to introduce this package',
+  ENTER_REASON: 'Enter the purpose.For example, I want to import this package',
   SOURCE_CODE: 'Spec URL',
   SOURCE_CODE_LICENSE: 'SRPM URL',
   ENTER_SOURCE_CODE: 'Enter the Spec URL.',
@@ -51,10 +50,20 @@ export default {
   SIGN_CLA_TIPS2: 'Sign CLA',
   TO_HOME: 'Back to Homepage',
   SIGN_CLA_TOO: 'Already Signed',
-  ONLY_TC_OPT: 'Only TC members can perform this operation.',
+  ONLY_TC_OPT:
+    'Only TC members and {0} sig maintainer can perform this operation.',
   NAME_TIPS:
     'The software package name must be the value of Name in the spec file.',
   PLATFORM_TIPS:
     'The spec and source RPM files will be stored on the specified platform.',
   CONFIRM_TIP: 'Confirm to perform this operation',
+  TC_MEMBER: 'TC member',
+  OPERATION_LOG: 'Operation Log',
+  OPERATION_LOG_APPROVE: '{0} approved importing the software package.',
+  OPERATION_LOG_ABANDON:
+    '{0} closed the software package contribution request.',
+  OPERATION_LOG_REJECT: '{0} rejected importing the software package.',
+  OPERATION_LOG_MODIFY:
+    '{0} updated the basic information about the software package.',
+  OPERATION_LOG_RESTART_CI: '{0} run CI again.',
 };

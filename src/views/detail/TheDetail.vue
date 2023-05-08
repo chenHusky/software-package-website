@@ -3,6 +3,7 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import DetailContent from './DetailContent.vue';
 import DetailComment from './DetailComment.vue';
+import DetailOperationLog from './DetailOperationLog.vue';
 import CommentsModal from './CommentsModal.vue';
 import ConfirmModal from './ConfirmModal.vue';
 import FlowChart from './FlowChart.vue';
@@ -99,7 +100,7 @@ const operateOption = computed(() => [
     value: 'approve',
     label: t('software.APPROVE'),
     type: 'primary',
-    tooltip: t('software.ONLY_TC_OPT'),
+    tooltip: t('software.ONLY_TC_OPT', [detailData.value.sig || '']),
     disable: detailData.value.phase === 'creating_repo',
     visible:
       detailData.value.importer &&
@@ -110,7 +111,7 @@ const operateOption = computed(() => [
     value: 'reject',
     label: t('software.REJECT'),
     type: 'primary',
-    tooltip: t('software.ONLY_TC_OPT'),
+    tooltip: t('software.ONLY_TC_OPT', [detailData.value.sig || '']),
     disable: detailData.value.phase === 'creating_repo',
     visible:
       detailData.value.importer &&
@@ -239,6 +240,9 @@ const submitConfirm = () => {
           v-model="showConfirm"
           @submit="submitConfirm"
         ></ConfirmModal>
+      </div>
+      <div v-if="detailData?.logs?.length">
+        <DetailOperationLog :data="detailData?.logs"></DetailOperationLog>
       </div>
       <div v-if="detailData?.comments?.length">
         <DetailComment
