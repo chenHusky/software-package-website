@@ -118,7 +118,7 @@ const operateOption = computed(() => [
       detailData.value.importer !== guardAuthClient.value.username,
   },
   {
-    value: 'modify',
+    value: 'update',
     label: t('software.MODIFY'),
     type: 'primary',
     disable: detailData.value.phase === 'creating_repo',
@@ -127,7 +127,7 @@ const operateOption = computed(() => [
       detailData.value.importer === guardAuthClient.value.username,
   },
   {
-    value: 'restart',
+    value: 'rerunci',
     label: t('software.RESTART_CI'),
     type: 'primary',
     disable: detailData.value.phase === 'creating_repo',
@@ -146,7 +146,7 @@ const operateOption = computed(() => [
   },
 ]);
 const operate = (
-  key: 'approve' | 'reject' | 'abandon' | 'modify' | 'restart'
+  key: 'approve' | 'reject' | 'abandon' | 'update' | 'rerunci'
 ) => {
   const id = route.params.id as string;
   const eventObj = {
@@ -160,10 +160,10 @@ const operate = (
         initData();
       });
     },
-    modify: () => {
+    update: () => {
       isModify.value = true;
     },
-    restart: () => {
+    rerunci: () => {
       rerunCI(id).then(() => {
         initData();
       });
