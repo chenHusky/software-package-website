@@ -14,8 +14,8 @@ const keyToI18n: any = {
   approve: 'software.OPERATION_LOG_APPROVE',
   reject: 'software.OPERATION_LOG_REJECT',
   abandon: 'software.OPERATION_LOG_ABANDON',
-  modify: 'software.OPERATION_LOG_MODIFY',
-  restart: 'software.OPERATION_LOG_RESTART_CI',
+  update: 'software.OPERATION_LOG_MODIFY',
+  rerunci: 'software.OPERATION_LOG_RESTART_CI',
 };
 </script>
 <template>
