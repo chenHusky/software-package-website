@@ -289,7 +289,7 @@ export default {
     ATOM_PC: '/atom-pc.png',
     ATOM_MO: '/atom-mo.png',
     MAIL: 'contact@openeuler.io',
-    COPY_RIGHT: 'Авторские права © openEuler 2022. Все права защищены.',
+    COPY_RIGHT: 'Авторские права © openEuler 2023. Все права защищены.',
     RIGHT_LIST: [
       {
         NAME: 'Товарный знак',
