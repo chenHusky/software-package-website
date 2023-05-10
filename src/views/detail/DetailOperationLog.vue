@@ -20,7 +20,7 @@ const keyToI18n: any = {
 </script>
 <template>
   <div class="content">
-    <h4>{{ t('software.OPERATION_LOG') }}</h4>
+    <h3>{{ t('software.OPERATION_LOG') }}</h3>
     <el-scrollbar max-height="128px">
       <p v-for="item in data" :key="item.time" class="log">
         <span class="time">{{ item.time }}</span>
@@ -28,21 +28,19 @@ const keyToI18n: any = {
       </p>
     </el-scrollbar>
   </div>
+  <hr />
 </template>
 
 <style scoped lang="scss">
 .content {
   margin: var(--o-spacing-h5);
-  padding: var(--o-spacing-h5);
-  border: 1px solid var(--o-color-black);
-  width: 80%;
-  h4 {
+  h3 {
     margin-bottom: var(--o-spacing-h5);
   }
   .log {
     line-height: var(--o-line-height-h5);
     .time {
-      margin-right: 48px;
+      margin-right: 16px;
     }
   }
 }

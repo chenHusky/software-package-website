@@ -56,6 +56,12 @@ hr {
   overflow: visible; /* 2 */
 }
 
+hr {
+  background-color: var(--o-color-division1);
+  height: 1px;
+  border: none;
+}
+
 /**
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.

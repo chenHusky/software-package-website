@@ -7,6 +7,7 @@ export default {
   software_pkg_comment_illegal: '评论内容包含敏感词',
   software_pkg_not_found: '软件包不存在',
   software_pkg_not_importer: '只有提交人才能执行该操作',
+  software_pkg_ci_is_running: 'CI正在运行中,请稍后重试',
   bad_request_body: '参数错误',
   bad_request_param: '参数错误',
   system_error: '系统错误',
