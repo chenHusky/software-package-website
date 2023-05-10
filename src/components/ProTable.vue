@@ -409,5 +409,8 @@ const sizeChange = () => {
   :deep(.el-scrollbar__wrap--hidden-default) {
     max-height: 545px !important;
   }
+  .el-table {
+    box-shadow: none;
+  }
 }
 </style>

@@ -105,7 +105,7 @@ const operateOption = computed(() => [
     visible:
       detailData.value.importer &&
       detailData.value.importer !== guardAuthClient.value.username &&
-      detailData.value.ci_status !== 'ci-failed',
+      detailData.value.ci_status === 'ci-passed',
   },
   {
     value: 'reject',

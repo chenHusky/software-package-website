@@ -15,8 +15,8 @@ const submit = (form: any) => {
   const param = {
     ...form,
   };
-  addSoftware(param).then(() => {
-    router.push(`/${useLangStore().lang}/package`);
+  addSoftware(param).then((data) => {
+    router.push(`/${useLangStore().lang}/package-detail/${data?.data?.id}`);
   });
 };
 const cancel = () => {
