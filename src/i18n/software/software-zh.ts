@@ -26,6 +26,8 @@ export default {
   ENTER_SOURCE_CODE: '请填写Spec URL',
   ENTER_LICENSE: '请填写SRPM URL',
   ENTER_SIG: '请选择SIG',
+  SIG_TIPS: 'SIG(Special Interest Group),详情请参考',
+  SIG_CENTER: 'SIG中心',
   SELECT: '选择',
   PLATFORM: '软件包代码托管平台',
   SUBMIT: '提交',

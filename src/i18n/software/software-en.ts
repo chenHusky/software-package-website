@@ -26,6 +26,8 @@ export default {
   ENTER_SOURCE_CODE: 'Enter the Spec URL.',
   ENTER_LICENSE: 'Enter a SRPM URL',
   ENTER_SIG: 'Select a SIG',
+  SIG_TIPS: 'SIG(Special Interest Group). For details,see ',
+  SIG_CENTER: 'SIG Center.',
   SELECT: 'Select',
   PLATFORM: 'Code Hosting Platform',
   SUBMIT: 'Submit',
@@ -43,7 +45,7 @@ export default {
   RESTART_CI: 'Restart CI',
   SUBMITTER: 'Submitted By',
   SUBMIT_TIME: 'Submitted',
-  REPO_LINK: 'Repo',
+  REPO_LINK: 'Repository',
   SIGN_CLA: 'Sign CLA',
   SIGN_CLA_TIPS1:
     'You have not signed the CLA and cannot contribute software packages.',
