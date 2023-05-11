@@ -105,7 +105,9 @@ const getContentValue = (key: string) => {
     <div class="content">
       <template v-for="item in contentData" :key="item.key">
         <template v-if="!item.hidden">
-          <div class="label">{{ item.label }}:</div>
+          <div class="label" :class="item.key === 'repo_link' ? 'blod' : ''">
+            {{ item.label }}:
+          </div>
           <el-scrollbar :max-height="110">
             <a
               v-if="item.bold"

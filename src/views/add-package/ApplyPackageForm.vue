@@ -6,6 +6,7 @@ import { useI18n } from 'vue-i18n';
 import { FormInstance, FormItemRule } from 'element-plus';
 import { formValidator } from '@/shared/utils';
 import { useRoute } from 'vue-router';
+import { useLangStore } from '@/stores';
 
 const props = defineProps({
   // 传入默认值
@@ -113,6 +114,10 @@ const selectSig = (e: string) => {
   visible.value = false;
   formValidator(formRef.value, 'sig').subscribe();
 };
+const goSigCenter = () => {
+  const uri = `https://www.openeuler.org/${useLangStore().lang}/sig/sig-list/`;
+  window.open(uri, '_black');
+};
 </script>
 <template>
   <div>
@@ -204,7 +209,23 @@ const selectSig = (e: string) => {
           ></el-input>
         </div>
       </el-form-item>
-      <el-form-item :rules="rules" label="SIG" prop="sig" required>
+      <el-form-item :rules="rules" prop="sig" required>
+        <template #label>
+          <div class="platform-label">
+            <span>SIG</span>
+            <el-tooltip placement="top" effect="light">
+              <template #content>
+                <span style="font-size: 14px">
+                  {{ t('software.SIG_TIPS') }}
+                  <a @click="goSigCenter">{{ t('software.SIG_CENTER') }}</a>
+                </span>
+              </template>
+              <OIcon style="font-size: 18px">
+                <IconTips></IconTips>
+              </OIcon>
+            </el-tooltip>
+          </div>
+        </template>
         <div class="select-btn">
           <el-input
             v-model="form.sig"
