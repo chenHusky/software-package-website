@@ -34,7 +34,7 @@ export const router = createRouter({
 router.beforeEach((to) => {
   // 设置语言
   const langStore = useLangStore();
-  const lang = to.fullPath.includes('en') ? 'en' : 'zh';
+  const lang = to.fullPath.startsWith('/en/') ? 'en' : 'zh';
   // localStorage.setItem('lang', lang);
   langStore.lang = lang;
 });
