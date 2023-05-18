@@ -383,6 +383,7 @@ const sizeChange = () => {
   }
 }
 .header-filter {
+  width: max-content;
   display: flex;
   align-items: center;
   gap: 4px;
