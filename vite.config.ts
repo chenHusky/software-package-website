@@ -39,13 +39,13 @@ export default defineConfig({
       useSource: true,
     }),
   ],
-  // css: {
-  //   preprocessorOptions: {
-  //     scss: {
-  //       additionalData: `@use "@/shared/styles/o-theme/index.scss" as *;`,
-  //     },
-  //   },
-  // },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/shared/styles/o-theme/var.scss" as *;`,
+      },
+    },
+  },
 
   build: {
     chunkSizeWarningLimit: 1500,
