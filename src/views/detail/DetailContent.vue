@@ -33,6 +33,11 @@ const contentData = computed(() => [
     bold: true,
   },
   {
+    key: 'upstream',
+    label: t('software.UPSTREAM_URL'),
+    bold: true,
+  },
+  {
     key: 'sig',
     label: 'SIG',
   },

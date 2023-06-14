@@ -40,9 +40,10 @@ const form = ref({
   pkg_name: '',
   platform: 'gitee',
   reason: '',
-  sig: '',
+  sig: 'ecopkg',
   src_rpm_url: '',
   spec_url: '',
+  upstream: '',
 });
 watch(
   () => props.data,
@@ -65,9 +66,9 @@ const setDefaultForm = () => {
       'pkg_name',
       'platform',
       'reason',
-      'sig',
       'src_rpm_url',
       'spec_url',
+      'upstream',
     ];
     const params = keys.reduce((pre: any, next: any) => {
       if (query[next]) {
@@ -183,32 +184,48 @@ const goSigCenter = () => {
           type="textarea"
         ></el-input>
       </el-form-item>
-      <el-form-item
-        class="form-gap"
-        :rules="urlRules"
-        :label="t('software.SOURCE_CODE')"
-        prop="spec_url"
-        required
-      >
-        <el-input
-          v-model="form.spec_url"
-          :placeholder="t('software.ENTER_SOURCE_CODE')"
-        ></el-input>
-      </el-form-item>
-      <el-form-item
-        class="form-gap"
-        :rules="urlRules"
-        :label="t('software.SOURCE_CODE_LICENSE')"
-        prop="src_rpm_url"
-        required
-      >
-        <div class="select-btn">
+      <div class="fill-row mid-block">
+        <el-form-item
+          class="fill-row"
+          :rules="urlRules"
+          :label="t('software.SOURCE_CODE')"
+          prop="spec_url"
+          required
+        >
           <el-input
-            v-model="form.src_rpm_url"
-            :placeholder="t('software.ENTER_LICENSE')"
+            v-model="form.spec_url"
+            :placeholder="t('software.ENTER_SOURCE_CODE')"
           ></el-input>
-        </div>
-      </el-form-item>
+        </el-form-item>
+        <el-form-item
+          class="fill-row"
+          :rules="urlRules"
+          :label="t('software.SOURCE_CODE_LICENSE')"
+          prop="src_rpm_url"
+          required
+        >
+          <div class="select-btn">
+            <el-input
+              v-model="form.src_rpm_url"
+              :placeholder="t('software.ENTER_LICENSE')"
+            ></el-input>
+          </div>
+        </el-form-item>
+        <el-form-item
+          class="fill-row"
+          :rules="urlRules"
+          :label="t('software.UPSTREAM_URL')"
+          prop="upstream"
+          required
+        >
+          <div class="select-btn">
+            <el-input
+              v-model="form.upstream"
+              :placeholder="t('software.ENTER_UPSTREAM_URL')"
+            ></el-input>
+          </div>
+        </el-form-item>
+      </div>
       <el-form-item :rules="rules" prop="sig" required>
         <template #label>
           <div class="platform-label">
@@ -232,9 +249,9 @@ const goSigCenter = () => {
             disabled
             :placeholder="t('software.ENTER_SIG')"
           ></el-input>
-          <OButton type="primary" size="small" @click="visible = true">{{
+          <!-- <OButton type="primary" size="small" @click="visible = true">{{
             t('software.SELECT')
-          }}</OButton>
+          }}</OButton> -->
         </div>
       </el-form-item>
       <el-form-item :rules="rules" prop="platform" required>
@@ -283,8 +300,14 @@ const goSigCenter = () => {
     grid-column-start: span 2;
   }
   .form-gap {
-    margin-bottom: var(--o-gap-7);
+    margin-bottom: var(--o-gap-5);
   }
+}
+.mid-block {
+  display: grid;
+  background-color: var(--o-color-bg3);
+  margin-bottom: var(--o-gap-5);
+  padding-top: 18px;
 }
 .select-btn {
   display: grid;
