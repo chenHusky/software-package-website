@@ -17,5 +17,10 @@ COPY ./deploy/nginx/nginx.conf /etc/nginx/nginx.conf
 
 ENV RUN_USER nginx
 ENV RUN_GROUP nginx
+RUN touch /var/run/nginx.pid \
+    && chown -R nginx:nginx /var/log/nginx \ 
+    && chown -R nginx:nginx /var/run/nginx.pid \ 
+    && chown -R nginx:nginx /etc/nginx
 EXPOSE 8080
+USER nginx
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
