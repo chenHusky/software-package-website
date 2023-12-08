@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { computed, toRefs } from 'vue';
+import IconTips from '~icons/app/icon-tips.svg';
+import IconDownload from '~icons/app/icon-download.svg';
 import { useI18n } from 'vue-i18n';
+import HtmlTag from '@/shared/html-tag';
 const props = defineProps({
   data: {
     type: Object,
@@ -23,132 +26,102 @@ const contentData = computed(() => [
     label: t('software.REASON'),
   },
   {
-    key: 'spec_url',
-    label: t('software.SOURCE_CODE'),
-    bold: true,
-  },
-  {
-    key: 'src_rpm_url',
-    label: t('software.SOURCE_CODE_LICENSE'),
-    bold: true,
-  },
-  {
     key: 'upstream',
     label: t('software.UPSTREAM_URL'),
     bold: true,
+  },
+  {
+    key: 'spec',
+    label: t('software.SOURCE_CODE'),
+    download: true,
+  },
+  {
+    key: 'srpm',
+    label: t('software.SOURCE_CODE_LICENSE'),
+    download: true,
   },
   {
     key: 'sig',
     label: 'SIG',
   },
   {
-    key: 'platform',
-    label: t('software.PLATFORM'),
-  },
-  {
     key: 'repo_link',
     label: t('software.REPO_LINK'),
-    hidden: data.value.phase !== 'imported',
     bold: true,
+  },
+  {
+    key: 'committers',
+    label: 'Committers',
   },
 ]);
 
-const getPlatformLabel = (key: string) => {
-  const typesList: any = {
-    gitee: 'Gitee',
-    github: 'Github',
-  };
-  return typesList[key] || '';
-};
 const getContentValue = (key: string) => {
-  if (data.value?.application) {
-    if (key === 'platform') {
-      return getPlatformLabel(data.value?.application[key]);
+  if (data.value) {
+    if (key === 'committers') {
+      let str = '';
+      if (data.value?.committers?.length) {
+        str = data.value?.committers?.join(',');
+      }
+      return str;
     }
-    return data.value?.application[key] || '';
+    return data.value[key] || '';
   }
   return '';
 };
 </script>
 <template>
   <div>
-    <h3 class="title">
-      <span>{{ t('software.APPLY_INFO') }}</span>
-      <el-popover
-        width="200"
-        :show-arrow="true"
-        placement="top"
-        trigger="click"
-        :disabled="data?.rejected_by?.length || data?.approved_by?.length !== 1"
-        :content="t('software.APPROVE_APPLY_INFO')"
-        propper-style="{font-size: 12px}"
-      >
-        <template #reference>
-          <div v-if="data?.rejected_by?.length" class="person">
-            <span style="margin-right: 8px">{{ t('software.REJECT') }}:</span>
-            <ProfilePhoto
-              v-for="item in data?.rejected_by"
-              :key="item?.account"
-              :name="item?.account"
-              :is-t-c="item?.is_tc"
-              :sig="data?.sig"
-            ></ProfilePhoto>
-          </div>
-          <div v-else-if="data?.approved_by?.length" class="person">
-            <span style="margin-right: 8px">{{ t('software.APPROVE') }}:</span>
-            <ProfilePhoto
-              v-for="item in data?.approved_by"
-              :key="item?.account"
-              :name="item?.account"
-              :is-t-c="item?.is_tc"
-              :sig="data?.sig"
-            ></ProfilePhoto>
-          </div>
-        </template>
-      </el-popover>
-    </h3>
     <div class="content">
       <template v-for="item in contentData" :key="item.key">
-        <template v-if="!item.hidden">
-          <div class="label" :class="item.key === 'repo_link' ? 'blod' : ''">
-            {{ item.label }}:
-          </div>
-          <el-scrollbar :max-height="110">
-            <a
-              v-if="item.bold"
+        <div class="label">{{ item.label }}:</div>
+        <el-scrollbar :max-height="110">
+          <a
+            v-if="item.bold"
+            rel="noopener"
+            target="_blank"
+            class="value blod"
+            :href="getContentValue(item.key)"
+          >
+            {{ getContentValue(item.key) }}
+          </a>
+          <div v-else-if="item.download" class="download-item">
+            <span>{{ data[item.key]?.src }}</span>
+            <span v-if="data[item.key]?.download_addr"></span>
+            <el-tooltip v-else placement="top" effect="light">
+              <template #content>
+                <div style="font-size: 14px">
+                  {{ t('software.DOWNLOAD_TIP') }}
+                </div>
+              </template>
+              <OIcon style="font-size: 18px; cursor: pointer">
+                <IconTips></IconTips>
+              </OIcon>
+            </el-tooltip>
+
+            <HtmlTag
+              :tag="data[item.key]?.download_addr ? 'a' : 'p'"
               rel="noopener"
               target="_blank"
-              class="value blod"
-              :href="getContentValue(item.key)"
+              :href="data[item.key]?.download_addr"
+              download
+              class="download-btn"
             >
-              {{ getContentValue(item.key) }}
-            </a>
-            <div v-else class="value">
-              {{ getContentValue(item.key) }}
-            </div>
-          </el-scrollbar>
-        </template>
+              <span class="download-label">{{ data[item.key]?.name }}</span>
+              <OIcon style="font-size: 24px">
+                <IconDownload></IconDownload>
+              </OIcon>
+            </HtmlTag>
+          </div>
+          <div v-else class="value">
+            {{ getContentValue(item.key) }}
+          </div>
+        </el-scrollbar>
       </template>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.title {
-  margin-top: var(--o-spacing-h5);
-  margin-bottom: var(--o-spacing-h5);
-  font-size: var(--o-font-size-h6);
-  display: flex;
-  justify-content: space-between;
-  .person {
-    font-size: var(--o-font-size-tip);
-    line-height: var(--o-line-height-tip);
-    color: var(--o-color-neutral5);
-    display: flex;
-    align-items: center;
-    background-color: var(--o-color-bg1);
-  }
-}
 .content {
   display: grid;
   grid-template-columns: max-content 1fr;
@@ -161,6 +134,18 @@ const getContentValue = (key: string) => {
   }
   .blod {
     font-weight: bold;
+  }
+  .download-item {
+    display: grid;
+    grid-template-columns: auto 20px 300px;
+    align-items: center;
+    column-gap: 8px;
+    .download-btn {
+      display: flex;
+      align-items: center;
+      column-gap: 8px;
+      width: max-content;
+    }
   }
 }
 </style>

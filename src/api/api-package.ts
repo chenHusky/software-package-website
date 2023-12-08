@@ -1,6 +1,7 @@
 import { request } from '@/shared/axios';
 import type { AxiosResponse } from '@/shared/axios';
 import { getUserAuth } from '@/shared/login';
+import { useLangStore } from '@/stores';
 
 /**
  * 申请新软件包
@@ -36,8 +37,12 @@ export function querySoftwareList(params: any) {
 export function getSoftwareDetail(id: string) {
   const url = `/api/v1/softwarepkg/${id}`;
   const { token } = getUserAuth();
+  const params = {
+    language: useLangStore().lang === 'zh' ? 'chinese' : 'english',
+  };
   return request
     .get(url, {
+      params,
       headers: {
         'PRIVATE-TOKEN': token,
       },
@@ -63,7 +68,7 @@ export function modifySoftware(id: string, params: any) {
 
 // 重启ci
 export function rerunCI(id: string) {
-  const url = `/api/v1/softwarepkg/${id}/review/rerunci`;
+  const url = `/api/v1/softwarepkg/${id}/retest`;
   const { token } = getUserAuth();
   return request
     .put(url, undefined, {
@@ -74,11 +79,11 @@ export function rerunCI(id: string) {
     .then((res: AxiosResponse) => res.data);
 }
 // 放弃申请软件包
-export function abandonSoftware(id: string) {
-  const url = `/api/v1/softwarepkg/${id}/review/abandon`;
+export function abandonSoftware(id: string, params: any) {
+  const url = `/api/v1/softwarepkg/${id}/close`;
   const { token } = getUserAuth();
   return request
-    .put(url, undefined, {
+    .put(url, params, {
       headers: {
         'PRIVATE-TOKEN': token,
       },
@@ -86,25 +91,12 @@ export function abandonSoftware(id: string) {
     .then((res: AxiosResponse) => res.data);
 }
 
-// 同意申请软件包
-export function approveSoftware(id: string) {
-  const url = `/api/v1/softwarepkg/${id}/review/approve`;
+// 获取评论列表
+export function getComments(id: string) {
+  const url = `/api/v1/softwarepkg/${id}/review/comment`;
   const { token } = getUserAuth();
   return request
-    .put(url, undefined, {
-      headers: {
-        'PRIVATE-TOKEN': token,
-      },
-    })
-    .then((res: AxiosResponse) => res.data);
-}
-
-// 不同意申请软件包
-export function rejectSoftware(id: string) {
-  const url = `/api/v1/softwarepkg/${id}/review/reject`;
-  const { token } = getUserAuth();
-  return request
-    .put(url, undefined, {
+    .get(url, {
       headers: {
         'PRIVATE-TOKEN': token,
       },
@@ -144,6 +136,49 @@ export function getVerifyCla() {
   const { token } = getUserAuth();
   return request
     .get(url, {
+      headers: {
+        'PRIVATE-TOKEN': token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}
+
+// check committer
+export function checkCommitters(params: any) {
+  const url = '/api/v1/softwarepkg/committers';
+  const { token } = getUserAuth();
+  return request
+    .post(url, params, {
+      headers: {
+        'PRIVATE-TOKEN': token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}
+
+// 获取review列表
+export function getReviewList(id: string) {
+  const url = `/api/v1/softwarepkg/${id}/review`;
+  const { token } = getUserAuth();
+  const params = {
+    language: useLangStore().lang === 'zh' ? 'chinese' : 'english',
+  };
+  return request
+    .get(url, {
+      params,
+      headers: {
+        'PRIVATE-TOKEN': token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}
+
+// 发送review
+export function postReview(id: string, params: any) {
+  const url = `/api/v1/softwarepkg/${id}/review`;
+  const { token } = getUserAuth();
+  return request
+    .post(url, params, {
       headers: {
         'PRIVATE-TOKEN': token,
       },

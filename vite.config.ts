@@ -71,7 +71,11 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api-omapi/, ''),
       },
       '/api/': {
-        target: 'https://software-pkg.openeuler.org/',
+        target: 'https://software-pkg.test.osinfra.cn/',
+        changeOrigin: true,
+      },
+      '/query/': {
+        target: 'https://dsapi.osinfra.cn/',
         changeOrigin: true,
       },
     },
