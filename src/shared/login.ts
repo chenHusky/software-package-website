@@ -78,8 +78,8 @@ export function showGuard() {
 // token失效跳转首页
 export function tokenFailIndicateLogin(isRefresh = true) {
   saveUserAuth();
-  const { guardAuthClient } = useStoreData();
-  guardAuthClient.value = {};
+  const { clearGuardAuthClient } = useLogin();
+  clearGuardAuthClient();
   if (isRefresh) {
     goToHome();
   }
@@ -127,12 +127,12 @@ const removeSessionInfo = () => {
 export function refreshInfo(community = 'openeuler') {
   const { token } = getUserAuth();
   if (token) {
-    const { guardAuthClient } = useStoreData();
-    guardAuthClient.value = getSessionInfo();
+    const { setGuardAuthClient } = useLogin();
+    setGuardAuthClient(getSessionInfo());
     queryPermission({ community }).then((res) => {
       const { data } = res;
       if (Object.prototype.toString.call(data) === '[object Object]') {
-        guardAuthClient.value = data;
+        setGuardAuthClient(data);
         setSessionInfo(data);
       }
     });

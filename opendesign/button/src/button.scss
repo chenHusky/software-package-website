@@ -70,6 +70,21 @@
     background-color: var(--o-button-bg-color-primary_disabled);
   }
 
+  // error
+  &.o-button-type-error {
+    color: var(--o-button-font-color-error);
+    border: var(--o-button-border-error);
+    background-color: var(--o-button-bg-color-error);
+    &:hover {
+      border: var(--o-button-border-error_hover);
+      background-color: var(--o-button-bg-color-error_hover);
+    }
+    &:active {
+      border: var(--o-button-border-error_active);
+      background-color: var(--o-button-bg-color-error_active);
+    }
+  }
+
   // secondary
   &.o-button-type-secondary {
     color: var(--o-button-font-color-secondary);

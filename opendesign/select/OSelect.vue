@@ -10,7 +10,11 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['scorll-bottom']);
+const emit = defineEmits(['scorll-bottom', 'change']);
+
+const change = () => {
+  emit('change');
+};
 
 const debounceEvent = throttle(
   function () {
@@ -76,6 +80,7 @@ onUnmounted(() => {
     :popper-class="classNames"
     v-bind="attrs"
     @visible-change="scrollEvent"
+    @change="change"
   >
     <template #prefix>
       <slot name="prefix"></slot>

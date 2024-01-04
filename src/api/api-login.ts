@@ -36,3 +36,29 @@ export function queryPermission(params: queryPermissionParams) {
       }
     });
 }
+
+/**
+ * 查询用户信息
+ */
+export function queryPersonalInfo() {
+  const url = '/api-omapi/oneid/personal/center/user?community=openeuler';
+  const { token } = getUserAuth();
+  return request
+    .get(url, {
+      global: true,
+      $doException: true,
+      headers: {
+        token,
+      },
+    })
+    .then((res: AxiosResponse) => res.data)
+    .catch((err) => {
+      const message = err?.response?.data?.message || '';
+      if (message && message !== 'token expires') {
+        ElMessage({
+          type: 'error',
+          message: err.message,
+        });
+      }
+    });
+}

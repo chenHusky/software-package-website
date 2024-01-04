@@ -79,3 +79,13 @@ export function getSigLandscape(lang: string): Promise<GroupInfo[]> {
       return info;
     });
 }
+
+/**
+ *TC组成员所管理的sig组列表
+ */
+export function queryTCSigs() {
+  const url = '/query/TC/sigs?community=openeuler';
+  return request
+    .get(url, { global: true })
+    .then((res: AxiosResponse) => res.data);
+}

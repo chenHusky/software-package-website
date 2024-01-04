@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import IconUser from '~icons/app/icon-user.svg';
 import IconCalendar from '~icons/app/icon-calendar.svg';
-import IconCi from '~icons/app/icon-ci.svg';
 
 defineProps({
   data: {
@@ -23,6 +22,9 @@ const getCiStatus = (status: any) => {
     'ci-failed': {
       color: '#F3524D',
     },
+    'ci-timeout': {
+      color: '#F3524D',
+    },
   };
   return ciStatus[status] || '';
 };
@@ -36,22 +38,18 @@ const getCiStatus = (status: any) => {
           {{ data.pkg_name }}
         </slot>
       </h3>
-      <SwTag :data="data.phase"> </SwTag>
+      <div
+        class="title-ci"
+        :style="{ 'background-color': getCiStatus(data.ci_status).color }"
+      >
+        {{ data.ci_status?.toUpperCase() }}
+      </div>
     </div>
     <div class="user">
       <OIcon class="icon"><IconUser></IconUser></OIcon>
       <div>{{ data.importer }}</div>
       <OIcon class="icon"><IconCalendar></IconCalendar></OIcon>
       <div>{{ data.applied_at }}</div>
-      <OIcon
-        class="icon m-left"
-        :style="{ color: getCiStatus(data.ci_status).color }"
-      >
-        <IconCi></IconCi>
-      </OIcon>
-      <div :style="{ color: getCiStatus(data.ci_status).color }">
-        {{ data.ci_status }}
-      </div>
     </div>
   </div>
 </template>
@@ -67,11 +65,11 @@ const getCiStatus = (status: any) => {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  .tag {
+  .title-ci {
     padding: var(--o-spacing-h10) var(--o-spacing-h8);
     color: var(--o-color-text2);
-    font-size: var(--o-font-size-tip);
-    line-height: var(--o-line-height-tip);
+    font-size: var(--o-font-size-text);
+    line-height: var(--o-line-height-text);
   }
 }
 .user {
@@ -88,9 +86,6 @@ const getCiStatus = (status: any) => {
   gap: 8px;
   .icon {
     font-size: var(--o-font-size-h8);
-  }
-  .m-left {
-    margin-left: var(--o-spacing-h5);
   }
 }
 </style>

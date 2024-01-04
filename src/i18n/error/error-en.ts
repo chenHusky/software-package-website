@@ -7,8 +7,21 @@ export default {
   software_pkg_comment_illegal: 'The comments include sensitive words.',
   software_pkg_not_found: 'Software package not found.',
   software_pkg_not_importer: 'Only the importer can perform this operation.',
-  software_pkg_ci_is_running: 'CI is running. Please try again later.',
+  software_pkg_ci_is_running: 'CI is not passed yet. Please try again later.',
   bad_request_body: 'Request body error.',
   bad_request_param: 'Request param error.',
   system_error: 'System error.',
+  param_not_spec_file: 'Not a spec file.',
+  param_not_srpm_file: 'Not a srpm file',
+  param_user_not_found: "The committer account doesn't exist",
+  param_too_many_committers: 'Exceed the maximum number of committers.',
+  param_duplicate_committers: 'Duplicate committers exist.',
+  param_missing_check_item_comment:
+    'When the check item is not pass, you need to fill in the comment.',
+  param_importer_missing_platform_id:
+    'The importer does not have an account of the repository.',
+  no_permission: 'No permission review check item.',
+  sensitive_content: 'Comments contain sensitive words.',
+  software_pkg_retest_repeatedly: 'Repetition triggers a retest.',
+  software_pkg_code_not_ready: 'Code synchronization is not complete.',
 };

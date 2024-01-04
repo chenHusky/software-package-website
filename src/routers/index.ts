@@ -16,6 +16,12 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/add-package/TheApplyPackage.vue'),
   },
   {
+    path: '/zh/modify-package/:id',
+    name: 'modify-package',
+    alias: '/en/modify-package/:id',
+    component: () => import('@/views/add-package/TheModifyPackage.vue'),
+  },
+  {
     path: '/zh/package-detail/:id',
     name: 'package-detail',
     alias: '/en/package-detail/:id',
