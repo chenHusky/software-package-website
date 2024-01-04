@@ -228,7 +228,9 @@ const submit = (formEl: FormInstance | undefined) => {
       emits(
         'submit',
         Object.assign(response, {
-          committers: response.committers.split(','),
+          committers: response.committers.length
+            ? response.committers.split(',')
+            : undefined,
           repo_link: getLinkLabel(),
         })
       );
