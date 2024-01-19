@@ -11,6 +11,7 @@ defineProps({
 const { t } = useI18n();
 
 const keyToI18n: any = {
+  review: 'software.OPERATION_LOG_APPROVE',
   approve: 'software.OPERATION_LOG_APPROVE',
   reject: 'software.OPERATION_LOG_REJECT',
   abandon: 'software.OPERATION_LOG_ABANDON',

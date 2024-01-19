@@ -13,17 +13,24 @@ import { ElMessage } from 'element-plus';
 type queryPermissionParams = {
   community: string;
 };
+
+function getHeaderConfig(): { headers: any } {
+  const { token } = getUserAuth();
+  const headersConfig = {
+    headers: {
+      token,
+    },
+  };
+  return headersConfig;
+}
 export function queryPermission(params: queryPermissionParams) {
   const url = '/api-omapi/oneid/personal/center/user';
-  const { token } = getUserAuth();
   return request
     .get(url, {
       params,
       global: true,
       $doException: true,
-      headers: {
-        token,
-      },
+      ...getHeaderConfig(),
     })
     .then((res: AxiosResponse) => res.data)
     .catch((err) => {
@@ -42,14 +49,11 @@ export function queryPermission(params: queryPermissionParams) {
  */
 export function queryPersonalInfo() {
   const url = '/api-omapi/oneid/personal/center/user?community=openeuler';
-  const { token } = getUserAuth();
   return request
     .get(url, {
       global: true,
       $doException: true,
-      headers: {
-        token,
-      },
+      ...getHeaderConfig(),
     })
     .then((res: AxiosResponse) => res.data)
     .catch((err) => {
