@@ -231,7 +231,7 @@ const submit = () => {
     >
       <template #default="scope">
         <el-input
-          :ref="(el) => (commentInputRefs[scope.$index] = el)"
+          :ref="(el: any) => (commentInputRefs[scope.$index] = el)"
           v-model="scope.row.comment"
           :rows="2"
           :autosize="{

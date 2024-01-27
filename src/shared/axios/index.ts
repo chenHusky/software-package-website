@@ -3,7 +3,7 @@ import axios from 'axios';
 import type {
   AxiosError,
   AxiosInstance,
-  AxiosRequestConfig,
+  InternalAxiosRequestConfig,
   AxiosResponse,
   AxiosStatic,
 } from 'axios';
@@ -16,7 +16,7 @@ import { tokenFailIndicateLogin } from '../login';
 import errI18n from '@/i18n/error';
 import { useLangStore } from '@/stores';
 
-interface RequestConfig<D = any> extends AxiosRequestConfig {
+interface RequestConfig<D = any> extends InternalAxiosRequestConfig {
   data?: D;
   $doException?: boolean; // 是否弹出错误提示框
   global?: boolean; // 是否为全局请求， 全局请求在清除请求池时，不清除
@@ -82,7 +82,7 @@ const pendingPool: Map<string, any> = new Map();
  * 请求拦截
  */
 const requestInterceptorId = request.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     if (loadingCount === 0) {
       loadingInstance = ElLoading.service({
         fullscreen: true,
