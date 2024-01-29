@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { translateComment } from '@/api/api-package';
 import { useStoreData } from '@/shared/login';
+import { handleMarkdown } from '@/shared/mkit';
 import { useLangStore } from '@/stores';
 import { computed, ref, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
@@ -18,6 +19,7 @@ const lang = computed(() => {
 });
 const translateData = ref('');
 const { data } = toRefs(props);
+console.log(data.value.content)
 const translate = () => {
   const obj = {
     id: route.params.id,
@@ -40,13 +42,8 @@ const translate = () => {
         <div class="time">{{ data.created_at }}</div>
       </div>
     </div>
-    <v-md-preview :text="'&emsp;' + data.content"></v-md-preview>
-    <v-md-preview
-      v-if="translateData"
-      :text="'&emsp;' + translateData"
-      class="translate-text"
-    >
-    </v-md-preview>
+    <div v-dompurify-html="handleMarkdown(data.content)" class="md-txt"></div>
+    <div v-if="translateData" v-dompurify-html="handleMarkdown(translateData)" class="md-txt translate-text"></div>
     <div v-if="guardAuthClient.username && !translateData" class="operate">
       <OIcon class="translate-btn" @click="translate">
         <IconTranslate></IconTranslate>
@@ -94,4 +91,34 @@ const translate = () => {
     font-size: var(--o-font_size-h2);
   }
 }
+:deep(.md-txt) {
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    tr {
+      background-color: var(--o-color-bg2);
+      border-top: 1px solid var(--o-color-border2);
+      th {
+        padding: 6px 13px;
+        border: 1px solid var(--o-color-border2);
+        font-weight: 600;
+      }
+      td {
+        padding: 6px 13px;
+        border: 1px solid var(--o-color-border2);
+      }
+    };
+    tr:nth-child(2n) {
+      background-color: var(--o-color-bg3);
+    }
+  }
+}
+
 </style>
